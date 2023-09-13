@@ -36,13 +36,13 @@ public class OverlayDefinition
 	private int secondaryRgbColor = -1;
 	private boolean hideUnderlay = true;
 
-	private transient int hue;
-	private transient int saturation;
-	private transient int lightness;
+	private int hue;
+	private int saturation;
+	private int lightness;
 
-	private transient int otherHue;
-	private transient int otherSaturation;
-	private transient int otherLightness;
+	private int otherHue;
+	private int otherSaturation;
+	private int otherLightness;
 
 	public void calculateHsl()
 	{

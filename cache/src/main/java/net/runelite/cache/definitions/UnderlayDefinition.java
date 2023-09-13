@@ -30,16 +30,16 @@ import lombok.Data;
 public class UnderlayDefinition
 {
 	private int id;
-	private int color;
+	private int rgbColor;
 
-	private transient int hue;
-	private transient int saturation;
-	private transient int lightness;
-	private transient int hueMultiplier;
+	private int hue;
+	private int saturation;
+	private int lightness;
+	private int hueMultiplier;
 
 	public void calculateHsl()
 	{
-		int var1 = color;
+		int var1 = rgbColor;
 		double var2 = (double) (var1 >> 16 & 255) / 256.0D;
 		double var4 = (double) (var1 >> 8 & 255) / 256.0D;
 		double var6 = (double) (var1 & 255) / 256.0D;

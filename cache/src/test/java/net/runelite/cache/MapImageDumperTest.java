@@ -80,8 +80,10 @@ public class MapImageDumperTest
 	public void dumpRegions() throws Exception
 	{
 		File base = StoreLocation.LOCATION,
-			outDir = folder.newFolder();
-
+				dumpDir = new File(System.getProperty("user.home") + "\\IdeaProjects\\pkhonor-cache-updater\\new_cache\\osrs\\cache\\export\\mapImage");
+		if (!dumpDir.exists()) {
+			dumpDir.mkdirs();
+		}
 		try (Store store = new Store(base))
 		{
 			store.load();
@@ -98,7 +100,7 @@ public class MapImageDumperTest
 			int z = 0;
 			for (Region region : regionLoader.getRegions())
 			{
-				File imageFile = new File(outDir, "img-" + z + "-" + region.getRegionID() + ".png");
+				File imageFile = new File(dumpDir, "img-" + z + "-" + region.getRegionID() + ".png");
 				BufferedImage image = dumper.drawRegion(region, z);
 				ImageIO.write(image, "png", imageFile);
 			}
