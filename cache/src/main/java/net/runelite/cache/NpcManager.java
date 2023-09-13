@@ -91,17 +91,15 @@ public class NpcManager
 	public void dump(File out) throws IOException
 	{
 		out.mkdirs();
-		String jsonOutput = "[";
+		StringBuilder str = new StringBuilder();
+		str.append("[");
 		for (NpcDefinition def : npcs.values())
 		{
-			NpcExporter exporter = new NpcExporter(def);
-			jsonOutput += gson.toJson(def) + ",";
-			File targ = new File(out, def.id + ".json");
-			exporter.exportTo(targ);
+			str.append(gson.toJson(def) + ",");
 		}
-		jsonOutput = jsonOutput.substring(0, jsonOutput.length() - 1);
-		jsonOutput += "]";
-		Files.asCharSink(new File(out, "NPCDump" + ".json"), Charset.defaultCharset()).write(jsonOutput);
+		str.deleteCharAt(str.length() - 1);
+		str.append("]");
+		Files.asCharSink(new File(out, "NPCDump" + ".json"), Charset.defaultCharset()).write(str);
 
 	}
 

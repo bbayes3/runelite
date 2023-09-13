@@ -113,18 +113,15 @@ public class ItemManager implements ItemProvider
 	public void export(File out) throws IOException
 	{
 		out.mkdirs();
-		String jsonOutput = "[";
+		StringBuilder str = new StringBuilder();
+		str.append("[");
 		for (ItemDefinition def : items.values())
 		{
-			ItemExporter exporter = new ItemExporter(def);
-			jsonOutput += gson.toJson(def) + ",";
-			File targ = new File(out, def.id + ".json");
-			exporter.exportTo(targ);
+			str.append(gson.toJson(def) + ",");
 		}
-		jsonOutput = jsonOutput.substring(0, jsonOutput.length() - 1);
-		jsonOutput += "]";
-		Files.asCharSink(new File(out, "ItemDump" + ".json"), Charset.defaultCharset()).write(jsonOutput);
-
+		str.deleteCharAt(str.length() - 1);
+		str.append("]");
+		Files.asCharSink(new File(out, "ItemDump" + ".json"), Charset.defaultCharset()).write(str);
 	}
 
 	public void java(File java) throws IOException
