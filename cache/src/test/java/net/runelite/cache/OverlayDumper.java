@@ -57,8 +57,11 @@ public class OverlayDumper
 	public void extract() throws IOException
 	{
 		File base = StoreLocation.LOCATION,
-			outDir = folder.newFolder();
+				outDir = new File(System.getProperty("user.home") + "\\IdeaProjects\\pkhonor-cache-updater\\new_cache\\osrs\\cache\\export\\Overlay");
 
+		if (!outDir.exists()) {
+			outDir.mkdirs();
+		}
 		int count = 0;
 
 		try (Store store = new Store(base))
@@ -72,14 +75,19 @@ public class OverlayDumper
 			byte[] archiveData = storage.loadArchive(archive);
 			ArchiveFiles files = archive.getFiles(archiveData);
 
+			String jsonOutput = "[";
 			for (FSFile file : files.getFiles())
 			{
 				OverlayLoader loader = new OverlayLoader();
 				OverlayDefinition overlay = loader.load(file.getFileId(), file.getContents());
+				jsonOutput += gson.toJson(overlay) + ",";
 
 				Files.asCharSink(new File(outDir, file.getFileId() + ".json"), Charset.defaultCharset()).write(gson.toJson(overlay));
 				++count;
 			}
+			jsonOutput = jsonOutput.substring(0, jsonOutput.length() - 1);
+			jsonOutput += "]";
+			Files.asCharSink(new File(outDir, "OverlayDump" + ".json"), Charset.defaultCharset()).write(jsonOutput);
 		}
 
 		logger.info("Dumped {} overlays to {}", count, outDir);

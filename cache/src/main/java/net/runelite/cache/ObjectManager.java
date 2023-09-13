@@ -26,10 +26,15 @@ package net.runelite.cache;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+
+import com.google.common.io.Files;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import net.runelite.cache.definitions.ObjectDefinition;
 import net.runelite.cache.definitions.exporters.ObjectExporter;
 import net.runelite.cache.definitions.loaders.ObjectLoader;
@@ -51,8 +56,11 @@ public class ObjectManager
 		this.store = store;
 	}
 
+	private final Gson gson = new GsonBuilder().create();
+
 	public void load() throws IOException
 	{
+
 		ObjectLoader loader = new ObjectLoader();
 
 		Storage storage = store.getStorage();
@@ -65,8 +73,11 @@ public class ObjectManager
 		for (FSFile f : files.getFiles())
 		{
 			ObjectDefinition def = loader.load(f.getFileId(), f.getContents());
+
 			objects.put(f.getFileId(), def);
+			System.out.println(def.getId() + "/" + 49583);
 		}
+
 	}
 
 	public Collection<ObjectDefinition> getObjects()
@@ -82,14 +93,20 @@ public class ObjectManager
 	public void dump(File out) throws IOException
 	{
 		out.mkdirs();
+		String jsonOutput = "[";
 
 		for (ObjectDefinition def : objects.values())
 		{
+			System.out.println(def.getId() + "/" + 49583);
 			ObjectExporter exporter = new ObjectExporter(def);
+			jsonOutput += gson.toJson(def) + ",";
+			//File targ = new File(out, def.getId() + ".json");
+			//exporter.exportTo(targ);
 
-			File targ = new File(out, def.getId() + ".json");
-			exporter.exportTo(targ);
 		}
+		jsonOutput = jsonOutput.substring(0, jsonOutput.length() - 1);
+		jsonOutput += "]";
+		Files.asCharSink(new File(out, "ObjectDump" + ".json"), Charset.defaultCharset()).write(jsonOutput);
 	}
 
 	public void java(File java) throws IOException

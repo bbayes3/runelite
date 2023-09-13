@@ -53,12 +53,14 @@ public class SpotanimDumperTest
 	public TemporaryFolder folder = StoreLocation.getTemporaryFolder();
 
 	@Test
-	@Ignore
 	public void test() throws IOException
 	{
-		File dumpDir = folder.newFolder("spotanims");
+		File dumpDir = new File(System.getProperty("user.home") + "\\IdeaProjects\\pkhonor-cache-updater\\new_cache\\osrs\\cache\\export\\gfx");
 		int count = 0;
 
+		if (!dumpDir.exists()) {
+			dumpDir.mkdirs();
+		}
 		try (Store store = new Store(StoreLocation.LOCATION))
 		{
 			store.load();
@@ -71,12 +73,13 @@ public class SpotanimDumperTest
 			ArchiveFiles files = archive.getFiles(archiveData);
 
 			SpotAnimLoader loader = new SpotAnimLoader();
-
+			String jsonOutput = "[";
 			for (FSFile file : files.getFiles())
 			{
 				byte[] b = file.getContents();
 
 				SpotAnimDefinition def = loader.load(file.getFileId(), b);
+				jsonOutput += gson.toJson(def) + ",";
 
 				if (def != null)
 				{
@@ -84,6 +87,9 @@ public class SpotanimDumperTest
 					++count;
 				}
 			}
+			jsonOutput = jsonOutput.substring(0, jsonOutput.length() - 1);
+			jsonOutput += "]";
+			Files.asCharSink(new File(dumpDir, "GFXDump" + ".json"), Charset.defaultCharset()).write(jsonOutput);
 		}
 
 		log.info("Dumped {} spotanims to {}", count, dumpDir);

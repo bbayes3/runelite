@@ -42,12 +42,13 @@ public class NpcManagerTest
 	public TemporaryFolder folder = StoreLocation.getTemporaryFolder();
 
 	@Test
-	@Ignore
 	public void test() throws IOException
 	{
-		File dumpDir = folder.newFolder(),
-			javaDir = folder.newFolder();
-
+		File dumpDir = new File(System.getProperty("user.home") + "\\IdeaProjects\\pkhonor-cache-updater\\new_cache\\osrs\\cache\\export\\npc"),
+			javaDir = new File(System.getProperty("user.home") + "\\IdeaProjects\\pkhonor-cache-updater\\new_cache\\osrs\\cache\\export\\npc");
+		if (!dumpDir.exists()) {
+			dumpDir.mkdirs();
+		}
 		try (Store store = new Store(StoreLocation.LOCATION))
 		{
 			store.load();

@@ -43,11 +43,13 @@ public class ItemManagerTest
 	public TemporaryFolder folder = StoreLocation.getTemporaryFolder();
 
 	@Test
-	@Ignore
 	public void test() throws IOException
 	{
-		File dumpDir = folder.newFolder(),
-			javaDir = folder.newFolder();
+		File dumpDir = new File(System.getProperty("user.home") + "\\IdeaProjects\\pkhonor-cache-updater\\new_cache\\osrs\\cache\\export\\items"),
+				javaDir = new File(System.getProperty("user.home") + "\\IdeaProjects\\pkhonor-cache-updater\\new_cache\\osrs\\cache\\export\\items");
+		if (!dumpDir.exists()) {
+			dumpDir.mkdirs();
+		}
 
 		Store store = new Store(StoreLocation.LOCATION);
 		store.load();

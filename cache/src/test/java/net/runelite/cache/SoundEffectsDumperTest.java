@@ -72,8 +72,7 @@ public class SoundEffectsDumperTest
 
 				SoundEffectLoader soundEffectLoader = new SoundEffectLoader();
 				SoundEffectDefinition soundEffect = soundEffectLoader.load(contents);
-
-				Files.asCharSink(new File(dumpDir, archive.getArchiveId() + ".json"), Charset.defaultCharset()).write(gson.toJson(soundEffect));
+				Files.asCharSink(new File(dumpDir, archive.getArchiveId() + ".wav"), Charset.defaultCharset()).write(gson.toJson(soundEffect));
 				++count;
 			}
 		}
