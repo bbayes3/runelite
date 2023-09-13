@@ -27,7 +27,10 @@ package net.runelite.cache;
 import com.google.common.io.Files;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import net.runelite.cache.definitions.VarbitDefinition;
@@ -52,17 +55,20 @@ public class VarbitDumper
 	@Rule
 	public TemporaryFolder folder = StoreLocation.getTemporaryFolder();
 
-	private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
+	private final Gson gson = new GsonBuilder().create();
 
 	@Test
-	@Ignore
 	public void extract() throws IOException
 	{
-		File base = StoreLocation.LOCATION,
-			outDir = folder.newFolder();
+		File base = StoreLocation.LOCATION;
+		File dumpDir = new File(System.getProperty("user.home") + "\\IdeaProjects\\pkhonor-cache-updater\\new_cache\\osrs\\cache\\export\\varbits");
 
+
+		if (!dumpDir.exists()) {
+			dumpDir.mkdirs();
+		}
 		int count = 0;
-
+		String jsonOutput = "[";
 		try (Store store = new Store(base))
 		{
 			store.load();
@@ -78,12 +84,15 @@ public class VarbitDumper
 			{
 				VarbitLoader loader = new VarbitLoader();
 				VarbitDefinition varbit = loader.load(file.getFileId(), file.getContents());
-
-				Files.asCharSink(new File(outDir, file.getFileId() + ".json"), Charset.defaultCharset()).write(gson.toJson(varbit));
+				jsonOutput += gson.toJson(varbit) + ",";
+				Files.asCharSink(new File(dumpDir, file.getFileId() + ".json"), Charset.defaultCharset()).write(gson.toJson(varbit));
 				++count;
 			}
+			jsonOutput = jsonOutput.substring(0, jsonOutput.length() - 1);
+			jsonOutput += "]";
+			Files.asCharSink(new File(dumpDir, "VarbitsDump" + ".json"), Charset.defaultCharset()).write(jsonOutput);
 		}
 
-		logger.info("Dumped {} varbits to {}", count, outDir);
+		logger.info("Dumped {} varbits to {}", count, dumpDir);
 	}
 }

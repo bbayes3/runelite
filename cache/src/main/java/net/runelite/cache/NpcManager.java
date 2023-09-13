@@ -26,10 +26,15 @@ package net.runelite.cache;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+
+import com.google.common.io.Files;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import net.runelite.cache.definitions.NpcDefinition;
 import net.runelite.cache.definitions.exporters.NpcExporter;
 import net.runelite.cache.definitions.loaders.NpcLoader;
@@ -81,17 +86,23 @@ public class NpcManager
 		return npcs.get(npcId);
 	}
 
+	private final Gson gson = new GsonBuilder().create();
+
 	public void dump(File out) throws IOException
 	{
 		out.mkdirs();
-
+		String jsonOutput = "[";
 		for (NpcDefinition def : npcs.values())
 		{
 			NpcExporter exporter = new NpcExporter(def);
-
+			jsonOutput += gson.toJson(def) + ",";
 			File targ = new File(out, def.id + ".json");
 			exporter.exportTo(targ);
 		}
+		jsonOutput = jsonOutput.substring(0, jsonOutput.length() - 1);
+		jsonOutput += "]";
+		Files.asCharSink(new File(out, "NPCDump" + ".json"), Charset.defaultCharset()).write(jsonOutput);
+
 	}
 
 	public void java(File java) throws IOException

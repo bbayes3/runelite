@@ -57,7 +57,10 @@ public class InventoryDumper
 	public void extract() throws IOException
 	{
 		File base = StoreLocation.LOCATION,
-			outDir = folder.newFolder();
+		dumpDir = new File(System.getProperty("user.home") + "\\IdeaProjects\\pkhonor-cache-updater\\new_cache\\osrs\\cache\\export");
+		if (!dumpDir.exists()) {
+			dumpDir.mkdirs();
+		}
 
 		int count = 0;
 
@@ -77,11 +80,11 @@ public class InventoryDumper
 				InventoryLoader loader = new InventoryLoader();
 				InventoryDefinition inv = loader.load(file.getFileId(), file.getContents());
 
-				Files.asCharSink(new File(outDir, inv.id + ".json"), Charset.defaultCharset()).write(gson.toJson(inv));
+				Files.asCharSink(new File(dumpDir, inv.id + ".json"), Charset.defaultCharset()).write(gson.toJson(inv));
 				++count;
 			}
 		}
 
-		logger.info("Dumped {} inventories to {}", count, outDir);
+		logger.info("Dumped {} inventories to {}", count, dumpDir);
 	}
 }

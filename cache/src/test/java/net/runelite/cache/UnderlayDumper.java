@@ -30,7 +30,10 @@ import com.google.gson.GsonBuilder;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
+
+import net.runelite.cache.definitions.OverlayDefinition;
 import net.runelite.cache.definitions.UnderlayDefinition;
+import net.runelite.cache.definitions.loaders.OverlayLoader;
 import net.runelite.cache.definitions.loaders.UnderlayLoader;
 import net.runelite.cache.fs.Archive;
 import net.runelite.cache.fs.ArchiveFiles;
@@ -57,8 +60,11 @@ public class UnderlayDumper
 	public void extract() throws IOException
 	{
 		File base = StoreLocation.LOCATION,
-			outDir = folder.newFolder();
+				outDir = new File(System.getProperty("user.home") + "\\IdeaProjects\\pkhonor-cache-updater\\new_cache\\osrs\\cache\\export\\underlay");
 
+		if (!outDir.exists()) {
+			outDir.mkdirs();
+		}
 		int count = 0;
 
 		try (Store store = new Store(base))
@@ -72,14 +78,19 @@ public class UnderlayDumper
 			byte[] archiveData = storage.loadArchive(archive);
 			ArchiveFiles files = archive.getFiles(archiveData);
 
+			String jsonOutput = "[";
 			for (FSFile file : files.getFiles())
 			{
 				UnderlayLoader loader = new UnderlayLoader();
 				UnderlayDefinition underlay = loader.load(file.getFileId(), file.getContents());
+				jsonOutput += gson.toJson(underlay) + ",";
 
 				Files.asCharSink(new File(outDir, file.getFileId() + ".json"), Charset.defaultCharset()).write(gson.toJson(underlay));
 				++count;
 			}
+			jsonOutput = jsonOutput.substring(0, jsonOutput.length() - 1);
+			jsonOutput += "]";
+			Files.asCharSink(new File(outDir, "UnderlayDump" + ".json"), Charset.defaultCharset()).write(jsonOutput);
 		}
 
 		logger.info("Dumped {} underlays to {}", count, outDir);
