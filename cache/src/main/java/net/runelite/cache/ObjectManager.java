@@ -75,7 +75,7 @@ public class ObjectManager
 			ObjectDefinition def = loader.load(f.getFileId(), f.getContents());
 
 			objects.put(f.getFileId(), def);
-			//System.out.println(def.getId() + "/" + 49583);
+			System.out.println(def.getId() + "/" + 49583);
 		}
 
 	}
@@ -93,17 +93,20 @@ public class ObjectManager
 	public void dump(File out) throws IOException
 	{
 		out.mkdirs();
-		StringBuilder str = new StringBuilder();
-		str.append("[");
+		String jsonOutput = "[";
 
 		for (ObjectDefinition def : objects.values())
 		{
-			//System.out.println(def.getId() + "/" + 49583);
-			str.append(gson.toJson(def) + ",");
+			System.out.println(def.getId() + "/" + 49583);
+			ObjectExporter exporter = new ObjectExporter(def);
+			jsonOutput += gson.toJson(def) + ",";
+			//File targ = new File(out, def.getId() + ".json");
+			//exporter.exportTo(targ);
+
 		}
-		str.deleteCharAt(str.length() - 1);
-		str.append("]");
-		Files.asCharSink(new File(out, "ObjectDump" + ".json"), Charset.defaultCharset()).write(str);
+		jsonOutput = jsonOutput.substring(0, jsonOutput.length() - 1);
+		jsonOutput += "]";
+		Files.asCharSink(new File(out, "ObjectDump" + ".json"), Charset.defaultCharset()).write(jsonOutput);
 	}
 
 	public void java(File java) throws IOException
