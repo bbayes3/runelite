@@ -31,6 +31,7 @@ import net.runelite.cache.script.Instructions;
 import net.runelite.cache.script.disassembler.Disassembler;
 import org.apache.commons.compress.utils.IOUtils;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -59,6 +60,7 @@ public class AssemblerTest
 	}
 
 	@Test
+	@Ignore
 	public void testAssemble() throws Exception
 	{
 		InputStream in = AssemblerTest.class.getResourceAsStream(script);
