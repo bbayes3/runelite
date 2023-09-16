@@ -31,9 +31,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 
-import net.runelite.cache.definitions.OverlayDefinition;
 import net.runelite.cache.definitions.UnderlayDefinition;
-import net.runelite.cache.definitions.loaders.OverlayLoader;
 import net.runelite.cache.definitions.loaders.UnderlayLoader;
 import net.runelite.cache.fs.Archive;
 import net.runelite.cache.fs.ArchiveFiles;
@@ -47,9 +45,9 @@ import org.junit.rules.TemporaryFolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class UnderlayDumper
+public class UnderlayDumperTest
 {
-	private static final Logger logger = LoggerFactory.getLogger(UnderlayDumper.class);
+	private static final Logger logger = LoggerFactory.getLogger(UnderlayDumperTest.class);
 
 	@Rule
 	public TemporaryFolder folder = StoreLocation.getTemporaryFolder();
@@ -60,7 +58,7 @@ public class UnderlayDumper
 	public void extract() throws IOException
 	{
 		File base = StoreLocation.LOCATION,
-				outDir = new File(System.getProperty("user.home") + "\\IdeaProjects\\pkhonor-cache-updater\\new_cache\\osrs\\cache\\export\\underlay");
+				outDir = new File(System.getProperty("user.home") + "\\IdeaProjects\\pkhonor-cache-updater\\new_cache\\osrs\\cache\\export\\Underlay");
 
 		if (!outDir.exists()) {
 			outDir.mkdirs();
@@ -85,7 +83,7 @@ public class UnderlayDumper
 				UnderlayDefinition underlay = loader.load(file.getFileId(), file.getContents());
 				jsonOutput += gson.toJson(underlay) + ",";
 
-				Files.asCharSink(new File(outDir, file.getFileId() + ".json"), Charset.defaultCharset()).write(gson.toJson(underlay));
+				//Files.asCharSink(new File(outDir, file.getFileId() + ".json"), Charset.defaultCharset()).write(gson.toJson(underlay));
 				++count;
 			}
 			jsonOutput = jsonOutput.substring(0, jsonOutput.length() - 1);
