@@ -59,7 +59,6 @@ public class MapDumperTest
 	public TemporaryFolder folder = StoreLocation.getTemporaryFolder();
 
 	@Test
-	@Ignore
 	public void dumpRaw() throws IOException
 	{
 		File base = StoreLocation.LOCATION,

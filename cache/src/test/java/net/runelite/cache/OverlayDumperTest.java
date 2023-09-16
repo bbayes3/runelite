@@ -44,9 +44,9 @@ import org.junit.rules.TemporaryFolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class OverlayDumper
+public class OverlayDumperTest
 {
-	private static final Logger logger = LoggerFactory.getLogger(OverlayDumper.class);
+	private static final Logger logger = LoggerFactory.getLogger(OverlayDumperTest.class);
 
 	@Rule
 	public TemporaryFolder folder = StoreLocation.getTemporaryFolder();
@@ -82,7 +82,7 @@ public class OverlayDumper
 				OverlayDefinition overlay = loader.load(file.getFileId(), file.getContents());
 				jsonOutput += gson.toJson(overlay) + ",";
 
-				Files.asCharSink(new File(outDir, file.getFileId() + ".json"), Charset.defaultCharset()).write(gson.toJson(overlay));
+				//Files.asCharSink(new File(outDir, file.getFileId() + ".json"), Charset.defaultCharset()).write(gson.toJson(overlay));
 				++count;
 			}
 			jsonOutput = jsonOutput.substring(0, jsonOutput.length() - 1);

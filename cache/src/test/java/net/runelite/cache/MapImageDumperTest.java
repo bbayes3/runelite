@@ -47,7 +47,6 @@ public class MapImageDumperTest
 	public TemporaryFolder folder = StoreLocation.getTemporaryFolder();
 
 	@Test
-	@Ignore
 	public void dumpMap() throws IOException
 	{
 		File base = StoreLocation.LOCATION,

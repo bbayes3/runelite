@@ -56,11 +56,11 @@ public class SequenceLoader
 		if (opcode == 1)
 		{
 			var3 = stream.readUnsignedShort();
-			def.frameLenghts = new int[var3];
+			def.frameLength = new int[var3];
 
 			for (var4 = 0; var4 < var3; ++var4)
 			{
-				def.frameLenghts[var4] = stream.readUnsignedShort();
+				def.frameLength[var4] = stream.readUnsignedShort();
 			}
 
 			def.frameIDs = new int[var3];

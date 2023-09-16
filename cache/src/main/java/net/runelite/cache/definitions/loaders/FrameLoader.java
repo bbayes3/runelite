@@ -120,6 +120,8 @@ public class FrameLoader
 
 		if (data.getOffset() != b.length)
 		{
+			System.out.println(data.getOffset());
+			System.out.println(b.length);
 			throw new RuntimeException();
 		}
 

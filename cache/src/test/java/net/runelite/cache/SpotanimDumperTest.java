@@ -83,7 +83,7 @@ public class SpotanimDumperTest
 
 				if (def != null)
 				{
-					Files.asCharSink(new File(dumpDir, file.getFileId() + ".json"), Charset.defaultCharset()).write(gson.toJson(def));
+					//Files.asCharSink(new File(dumpDir, file.getFileId() + ".json"), Charset.defaultCharset()).write(gson.toJson(def));
 					++count;
 				}
 			}

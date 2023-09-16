@@ -59,7 +59,6 @@ public class FrameDumper
 	private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
 	@Test
-	@Ignore
 	public void extract() throws IOException
 	{
 		File base = StoreLocation.LOCATION,

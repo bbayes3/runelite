@@ -33,7 +33,7 @@ public class SequenceDefinition
 	private final int id;
 	public int[] frameIDs; // top 16 bits are FrameDefinition ids
 	public int[] chatFrameIds;
-	public int[] frameLenghts;
+	public int[] frameLength;
 	public int[] frameSounds;
 	public int frameStep = -1;
 	public int[] interleaveLeave;
