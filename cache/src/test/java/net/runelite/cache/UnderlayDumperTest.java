@@ -32,6 +32,7 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 
 import net.runelite.cache.definitions.UnderlayDefinition;
+import net.runelite.cache.definitions.loaders.OverlayLoader;
 import net.runelite.cache.definitions.loaders.UnderlayLoader;
 import net.runelite.cache.fs.Archive;
 import net.runelite.cache.fs.ArchiveFiles;
