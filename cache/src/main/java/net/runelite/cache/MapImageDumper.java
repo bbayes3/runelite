@@ -141,27 +141,10 @@ public class MapImageDumper
 
 	public static void main(String[] args) throws IOException
 	{
-		Options options = new Options();
-		options.addOption(Option.builder().longOpt("cachedir").hasArg().required().build());
-		options.addOption(Option.builder().longOpt("xteapath").hasArg().required().build());
-		options.addOption(Option.builder().longOpt("outputdir").hasArg().required().build());
 
-		CommandLineParser parser = new DefaultParser();
-		CommandLine cmd;
-		try
-		{
-			cmd = parser.parse(options, args);
-		}
-		catch (ParseException ex)
-		{
-			System.err.println("Error parsing command line options: " + ex.getMessage());
-			System.exit(-1);
-			return;
-		}
-
-		final String cacheDirectory = cmd.getOptionValue("cachedir");
-		final String xteaJSONPath = cmd.getOptionValue("xteapath");
-		final String outputDirectory = cmd.getOptionValue("outputdir");
+		final String cacheDirectory = "C:\\Users\\brant\\IdeaProjects\\pkhonor-cache-updater\\new_cache\\osrs\\cache";
+		final String xteaJSONPath = "C:\\Users\\brant\\IdeaProjects\\pkhonor-cache-updater\\new_cache\\osrs\\xteas.json";
+		final String outputDirectory = System.getProperty("user.home") + "\\IdeaProjects\\pkhonor-cache-updater\\new_cache\\osrs\\cache\\export\\maps";
 
 		XteaKeyManager xteaKeyManager = new XteaKeyManager();
 		try (FileInputStream fin = new FileInputStream(xteaJSONPath))

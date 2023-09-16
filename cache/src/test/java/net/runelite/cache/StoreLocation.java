@@ -63,7 +63,7 @@ public class StoreLocation
 
 	private static File setupCacheDir() throws IOException
 	{
-		File file = new File(System.getProperty("java.io.tmpdir"), "cache-" + CacheProperties.getCacheVersion());
+		File file = new File(System.getProperty("user.home") + "\\IdeaProjects\\pkhonor-cache-updater\\new_cache\\osrs\\cache");
 
 		if (file.exists())
 		{

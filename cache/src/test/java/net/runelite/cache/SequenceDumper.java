@@ -55,12 +55,14 @@ public class SequenceDumper
 	private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
 	@Test
-	@Ignore
 	public void extract() throws IOException
 	{
 		File base = StoreLocation.LOCATION,
-			outDir = folder.newFolder();
+			outDir = new File(System.getProperty("user.home") + "\\IdeaProjects\\pkhonor-cache-updater\\new_cache\\osrs\\cache\\export\\Animations");
 
+		if (!outDir.exists()) {
+			outDir.mkdirs();
+		}
 		int count = 0;
 
 		try (Store store = new Store(base))
@@ -73,15 +75,19 @@ public class SequenceDumper
 
 			byte[] archiveData = storage.loadArchive(archive);
 			ArchiveFiles files = archive.getFiles(archiveData);
-
+			StringBuilder str = new StringBuilder();
+			str.append("[");
 			for (FSFile file : files.getFiles())
 			{
 				SequenceLoader loader = new SequenceLoader();
 				SequenceDefinition seq = loader.load(file.getFileId(), file.getContents());
-
-				Files.asCharSink(new File(outDir, file.getFileId() + ".json"), Charset.defaultCharset()).write(gson.toJson(seq));
+				str.append(gson.toJson(seq) + ",");
+				//Files.asCharSink(new File(outDir, file.getFileId() + ".json"), Charset.defaultCharset()).write(gson.toJson(seq));
 				++count;
 			}
+			str.deleteCharAt(str.length() - 1);
+			str.append("]");
+			Files.asCharSink(new File(outDir, "AnimationDump" + ".json"), Charset.defaultCharset()).write(str);
 		}
 
 		logger.info("Dumped {} sequences to {}", count, outDir);
