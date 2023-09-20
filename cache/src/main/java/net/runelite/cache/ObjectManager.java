@@ -75,7 +75,11 @@ public class ObjectManager
 			ObjectDefinition def = loader.load(f.getFileId(), f.getContents());
 
 			objects.put(f.getFileId(), def);
+<<<<<<< HEAD
 			//System.out.println(def.getId() + "/" + 49583);
+=======
+			System.out.println(def.getId() + "/" + 49583);
+>>>>>>> fff6c4182 (Updated dumping)
 		}
 
 	}
@@ -93,6 +97,7 @@ public class ObjectManager
 	public void dump(File out) throws IOException
 	{
 		out.mkdirs();
+<<<<<<< HEAD
 		StringBuilder str = new StringBuilder();
 		str.append("[");
 
@@ -104,6 +109,22 @@ public class ObjectManager
 		str.deleteCharAt(str.length() - 1);
 		str.append("]");
 		Files.asCharSink(new File(out, "ObjectDump" + ".json"), Charset.defaultCharset()).write(str);
+=======
+		String jsonOutput = "[";
+
+		for (ObjectDefinition def : objects.values())
+		{
+			System.out.println(def.getId() + "/" + 49583);
+			ObjectExporter exporter = new ObjectExporter(def);
+			jsonOutput += gson.toJson(def) + ",";
+			//File targ = new File(out, def.getId() + ".json");
+			//exporter.exportTo(targ);
+
+		}
+		jsonOutput = jsonOutput.substring(0, jsonOutput.length() - 1);
+		jsonOutput += "]";
+		Files.asCharSink(new File(out, "ObjectDump" + ".json"), Charset.defaultCharset()).write(jsonOutput);
+>>>>>>> fff6c4182 (Updated dumping)
 	}
 
 	public void java(File java) throws IOException
