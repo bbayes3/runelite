@@ -38,16 +38,15 @@ import net.runelite.cache.fs.FSFile;
 import net.runelite.cache.fs.Index;
 import net.runelite.cache.fs.Storage;
 import net.runelite.cache.fs.Store;
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class SequenceDumper
+public class SequenceDumperTest
 {
-	private static final Logger logger = LoggerFactory.getLogger(SequenceDumper.class);
+	private static final Logger logger = LoggerFactory.getLogger(SequenceDumperTest.class);
 
 	@Rule
 	public TemporaryFolder folder = StoreLocation.getTemporaryFolder();

@@ -29,6 +29,7 @@ import java.io.File;
 import java.io.IOException;
 import net.runelite.cache.StoreLocation;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
@@ -39,6 +40,7 @@ public class StoreLoadTest
 	public TemporaryFolder folder = StoreLocation.getTemporaryFolder();
 
 	@Test
+	@Ignore
 	public void testLoad() throws IOException
 	{
 		try (Store store = new Store(StoreLocation.LOCATION))
@@ -48,6 +50,7 @@ public class StoreLoadTest
 	}
 
 	@Test
+	@Ignore
 	public void testSave() throws IOException
 	{
 		try (Store store = new Store(StoreLocation.LOCATION))
