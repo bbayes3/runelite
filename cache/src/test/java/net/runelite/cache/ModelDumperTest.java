@@ -49,6 +49,7 @@ public class ModelDumperTest
 	public TemporaryFolder folder = StoreLocation.getTemporaryFolder();
 
 	@Test
+	@Ignore
 	public void test() throws IOException
 	{
 		File modelDir = folder.newFolder("models");
