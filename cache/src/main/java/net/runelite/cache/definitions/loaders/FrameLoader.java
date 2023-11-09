@@ -42,7 +42,7 @@ public class FrameLoader
 		int framemapArchiveIndex = in.readUnsignedShort();
 		int length = in.readUnsignedByte();
 
-		data.skip(3 + length); // framemapArchiveIndex + length + data
+		data.skip(framemapArchiveIndex + length); // framemapArchiveIndex + length + data
 
 		int[] indexFrameIds = new int[500];
 		int[] scratchTranslatorX = new int[500];

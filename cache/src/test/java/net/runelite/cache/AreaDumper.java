@@ -51,24 +51,32 @@ public class AreaDumper
 	public void extract() throws IOException
 	{
 		File base = StoreLocation.LOCATION,
-			outDir = folder.newFolder();
+				dumpDir = new File(System.getProperty("user.home") + "\\IdeaProjects\\pkhonor-cache-updater\\new_cache\\osrs\\cache\\export\\area");
 
+		if (!dumpDir.exists()) {
+			dumpDir.mkdirs();
+		}
 		int count = 0;
 
 		try (Store store = new Store(base))
 		{
 			store.load();
-
+			StringBuilder str = new StringBuilder();
+			str.append("[");
 			AreaManager areaManager = new AreaManager(store);
 			areaManager.load();
 
 			for (AreaDefinition area : areaManager.getAreas())
 			{
-				Files.asCharSink(new File(outDir, area.id + ".json"), Charset.defaultCharset()).write(gson.toJson(area));
+				str.append(gson.toJson(area) + ",");
+				Files.asCharSink(new File(dumpDir, area.id + ".json"), Charset.defaultCharset()).write(gson.toJson(area));
 				++count;
-			}
+				}str.deleteCharAt(str.length() - 1);
+			str.append("]");
+			Files.asCharSink(new File(dumpDir, "AreaDump" + ".json"), Charset.defaultCharset()).write(str);
+
 		}
 
-		logger.info("Dumped {} areas to {}", count, outDir);
+		logger.info("Dumped {} areas to {}", count, dumpDir);
 	}
 }

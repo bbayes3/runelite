@@ -56,7 +56,7 @@ public class ObjectManager
 		this.store = store;
 	}
 
-	private final Gson gson = new GsonBuilder().create();
+	private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
 	public void load() throws IOException
 	{

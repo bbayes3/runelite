@@ -86,7 +86,7 @@ public class NpcManager
 		return npcs.get(npcId);
 	}
 
-	private final Gson gson = new GsonBuilder().create();
+	private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
 	public void dump(File out) throws IOException
 	{
