@@ -99,6 +99,7 @@ public class GpuPlugin extends Plugin implements DrawCallbacks
 	static final int MAX_DISTANCE = 184;
 	static final int MAX_FOG_DEPTH = 100;
 	static final int SCENE_OFFSET = (Constants.EXTENDED_SCENE_SIZE - Constants.SCENE_SIZE) / 2; // offset for sxy -> msxy
+	private static final int GROUND_MIN_Y = 350; // how far below the ground models extend
 
 	@Inject
 	private Client client;
@@ -241,8 +242,9 @@ public class GpuPlugin extends Plugin implements DrawCallbacks
 	private AntiAliasingMode lastAntiAliasingMode;
 	private int lastAnisotropicFilteringLevel = -1;
 
-	private int yaw;
-	private int pitch;
+	private double cameraX, cameraY, cameraZ;
+	private double cameraYaw, cameraPitch;
+
 	private int viewportOffsetX;
 	private int viewportOffsetY;
 
@@ -859,10 +861,13 @@ public class GpuPlugin extends Plugin implements DrawCallbacks
 	}
 
 	@Override
-	public void drawScene(int cameraX, int cameraY, int cameraZ, int cameraPitch, int cameraYaw, int plane)
+	public void drawScene(double cameraX, double cameraY, double cameraZ, double cameraPitch, double cameraYaw, int plane)
 	{
-		yaw = client.getCameraYaw();
-		pitch = client.getCameraPitch();
+		this.cameraX = cameraX;
+		this.cameraY = cameraY;
+		this.cameraZ = cameraZ;
+		this.cameraPitch = cameraPitch;
+		this.cameraYaw = cameraYaw;
 		viewportOffsetX = client.getViewportXOffset();
 		viewportOffsetY = client.getViewportYOffset();
 
@@ -881,14 +886,14 @@ public class GpuPlugin extends Plugin implements DrawCallbacks
 		vertexBuffer.ensureCapacity(32);
 		IntBuffer uniformBuf = vertexBuffer.getBuffer();
 		uniformBuf
-			.put(yaw)
-			.put(pitch)
+			.put(Float.floatToIntBits((float) cameraYaw))
+			.put(Float.floatToIntBits((float) cameraPitch))
 			.put(client.getCenterX())
 			.put(client.getCenterY())
 			.put(client.getScale())
-			.put(cameraX)
-			.put(cameraY)
-			.put(cameraZ);
+			.put(Float.floatToIntBits((float) cameraX))
+			.put(Float.floatToIntBits((float) cameraY))
+			.put(Float.floatToIntBits((float) cameraZ));
 		uniformBuf.flip();
 
 		GL43C.glBindBuffer(GL43C.GL_UNIFORM_BUFFER, uniformBuffer.glBufferId);
@@ -1069,8 +1074,7 @@ public class GpuPlugin extends Plugin implements DrawCallbacks
 		if (computeMode == ComputeMode.NONE)
 		{
 			targetBufferOffset += sceneUploader.upload(model,
-				tileX, tileY,
-				tileX << Perspective.LOCAL_COORD_BITS, tileY << Perspective.LOCAL_COORD_BITS,
+				0, 0,
 				vertexBuffer, uvBuffer,
 				true);
 		}
@@ -1275,9 +1279,9 @@ public class GpuPlugin extends Plugin implements DrawCallbacks
 			// Calculate projection matrix
 			float[] projectionMatrix = Mat4.scale(client.getScale(), client.getScale(), 1);
 			Mat4.mul(projectionMatrix, Mat4.projection(viewportWidth, viewportHeight, 50));
-			Mat4.mul(projectionMatrix, Mat4.rotateX((float) -(Math.PI - pitch * Perspective.UNIT)));
-			Mat4.mul(projectionMatrix, Mat4.rotateY((float) (yaw * Perspective.UNIT)));
-			Mat4.mul(projectionMatrix, Mat4.translate(-client.getCameraX2(), -client.getCameraY2(), -client.getCameraZ2()));
+			Mat4.mul(projectionMatrix, Mat4.rotateX((float) cameraPitch));
+			Mat4.mul(projectionMatrix, Mat4.rotateY((float) cameraYaw));
+			Mat4.mul(projectionMatrix, Mat4.translate((float) -cameraX, (float) -cameraY, (float) -cameraZ));
 			GL43C.glUniformMatrix4fv(uniProjectionMatrix, false, projectionMatrix);
 
 			// Bind uniforms
@@ -1609,7 +1613,7 @@ public class GpuPlugin extends Plugin implements DrawCallbacks
 		int y = Math.max(
 			Math.max(tileHeights[plane][msx][msy], tileHeights[plane][msx][msy + 1]),
 			Math.max(tileHeights[plane][msx + 1][msy], tileHeights[plane][msx + 1][msy + 1])
-		) - cameraY;
+		) + GROUND_MIN_Y - cameraY;
 
 		int radius = 96; // ~ 64 * sqrt(2)
 
@@ -1774,7 +1778,7 @@ public class GpuPlugin extends Plugin implements DrawCallbacks
 			buffer.put(uvOffset);
 			buffer.put(tc);
 			buffer.put(targetBufferOffset);
-			buffer.put(FLAG_SCENE_BUFFER | (hillskew ? (1 << 26) : 0) | (plane << 24) | (model.getRadius() << 12) | orientation);
+			buffer.put(FLAG_SCENE_BUFFER | (hillskew ? (1 << 26) : 0) | (plane << 24) | orientation);
 			buffer.put(x + client.getCameraX2()).put(y + client.getCameraY2()).put(z + client.getCameraZ2());
 
 			targetBufferOffset += tc * 3;
@@ -1808,7 +1812,7 @@ public class GpuPlugin extends Plugin implements DrawCallbacks
 			buffer.put(hasUv ? tempUvOffset : -1);
 			buffer.put(len / 3);
 			buffer.put(targetBufferOffset);
-			buffer.put((model.getRadius() << 12) | orientation);
+			buffer.put(orientation);
 			buffer.put(x + client.getCameraX2()).put(y + client.getCameraY2()).put(z + client.getCameraZ2());
 
 			tempOffset += len;
@@ -1843,7 +1847,7 @@ public class GpuPlugin extends Plugin implements DrawCallbacks
 
 	private int getScaledValue(final double scale, final int value)
 	{
-		return (int) (value * scale + .5);
+		return (int) (value * scale);
 	}
 
 	private void glDpiAwareViewport(final int x, final int y, final int width, final int height)

@@ -24,6 +24,7 @@
  */
 package net.runelite.client.plugins.objectindicators;
 
+import com.google.common.base.MoreObjects;
 import com.google.common.base.Strings;
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -47,7 +48,6 @@ import static net.runelite.client.plugins.objectindicators.ColorTileObject.HF_TI
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
-import net.runelite.client.ui.overlay.OverlayPriority;
 import net.runelite.client.ui.overlay.OverlayUtil;
 import net.runelite.client.ui.overlay.outline.ModelOutlineRenderer;
 import net.runelite.client.util.ColorUtil;
@@ -68,7 +68,7 @@ class ObjectIndicatorsOverlay extends Overlay
 		this.plugin = plugin;
 		this.modelOutlineRenderer = modelOutlineRenderer;
 		setPosition(OverlayPosition.DYNAMIC);
-		setPriority(OverlayPriority.LOW);
+		setPriority(PRIORITY_LOW);
 		setLayer(OverlayLayer.ABOVE_SCENE);
 	}
 
@@ -118,16 +118,11 @@ class ObjectIndicatorsOverlay extends Overlay
 				borderColor = config.markerColor();
 			}
 
-			Color fillColor = obj.getFillColor();
-			if (fillColor == null)
-			{
-				// default fill color is border color with a/12
-				fillColor = ColorUtil.colorWithAlpha(borderColor, borderColor.getAlpha() / 12);
-			}
-
 			final var flags = obj.getHighlightFlags() != 0 ? obj.getHighlightFlags() : defaultFlags;
 			if ((flags & HF_HULL) != 0)
 			{
+				// default hull fill color is a=50 while the clickbox and tiles are a/12
+				Color fillColor = MoreObjects.firstNonNull(obj.getFillColor(), new Color(0, 0, 0, 50));
 				renderConvexHull(graphics, object, borderColor, fillColor, stroke);
 			}
 
@@ -141,6 +136,7 @@ class ObjectIndicatorsOverlay extends Overlay
 				Shape clickbox = object.getClickbox();
 				if (clickbox != null)
 				{
+					Color fillColor = MoreObjects.firstNonNull(obj.getFillColor(), ColorUtil.colorWithAlpha(borderColor, borderColor.getAlpha() / 12));
 					OverlayUtil.renderPolygon(graphics, clickbox, borderColor, fillColor, stroke);
 				}
 			}
@@ -150,6 +146,7 @@ class ObjectIndicatorsOverlay extends Overlay
 				Polygon tilePoly = object.getCanvasTilePoly();
 				if (tilePoly != null)
 				{
+					Color fillColor = MoreObjects.firstNonNull(obj.getFillColor(), ColorUtil.colorWithAlpha(borderColor, borderColor.getAlpha() / 12));
 					OverlayUtil.renderPolygon(graphics, tilePoly, borderColor, fillColor, stroke);
 				}
 			}

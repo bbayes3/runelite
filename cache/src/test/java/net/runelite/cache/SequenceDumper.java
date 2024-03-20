@@ -80,6 +80,7 @@ public class SequenceDumper
 			for (FSFile file : files.getFiles())
 			{
 				SequenceLoader loader = new SequenceLoader();
+				loader.configureForRevision(archive.getRevision());
 				SequenceDefinition seq = loader.load(file.getFileId(), file.getContents());
 				str.append(gson.toJson(seq) + ",");
 				//Files.asCharSink(new File(outDir, file.getFileId() + ".json"), Charset.defaultCharset()).write(gson.toJson(seq));
