@@ -198,7 +198,7 @@ public class CrypticClue extends ClueScroll implements NpcClueScroll, ObjectClue
 			.text("His bark is worse than his bite.")
 			.location(new WorldPoint(3499, 3503, 0))
 			.npc("Barker")
-			.solution("Speak to the Barker at Canifis's Barkers' Haberdashery.")
+			.solution("Speak to Barker at Canifis's Barkers' Haberdashery.")
 			.build(),
 		CrypticClue.builder()
 			.text("The beasts to my east snap claws and tails, The rest to my west can slide and eat fish. The force to my north will jump and they'll wail, Come dig by my fire and make a wish.")
@@ -1692,10 +1692,10 @@ public class CrypticClue extends ClueScroll implements NpcClueScroll, ObjectClue
 			.solution("Dig anywhere in Yu'biusk. Fairy ring BLQ.")
 			.build(),
 		CrypticClue.builder()
-			.text("Search the Bookshelf with a skull on it inside the Burrow.")
-			.location(new WorldPoint(1569, 9460, 0))
-			.objectId(ObjectID.BOOKSHELF_51736)
-			.solution("Search the bookshelf in the basement of the Hunter Guild.")
+			.text("Search the food barrel at the top of the Hunter Guild.")
+			.location(new WorldPoint(1560, 3048, 2))
+			.objectId(ObjectID.FOOD_BARREL)
+			.solution("Search the food barrel at the top of the Hunter Guild.")
 			.build(),
 		CrypticClue.builder()
 			.text("Are you somewhat entertained?")
@@ -1879,6 +1879,7 @@ public class CrypticClue extends ClueScroll implements NpcClueScroll, ObjectClue
 		return new int[]{text.hashCode()};
 	}
 
+	@SuppressWarnings("PMD.UnusedPrivateMethod")
 	private static WorldPoint getViggoraLocation(ClueScrollPlugin plugin)
 	{
 		int varb = plugin.getClient().getVarbitValue(Varbits.VIGGORA_LOCATION);
