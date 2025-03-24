@@ -40,6 +40,7 @@ import java.util.TreeSet;
 import java.util.stream.Collectors;
 import lombok.Getter;
 import net.runelite.api.NpcID;
+import net.runelite.api.NullNpcID;
 import net.runelite.api.Varbits;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.client.plugins.timetracking.Tab;
@@ -51,6 +52,7 @@ class FarmingWorld
 	private Multimap<Integer, FarmingRegion> regions = HashMultimap.create();
 
 	@Getter
+	@SuppressWarnings("PMD.ImmutableField")
 	private Map<Tab, Set<FarmingPatch>> tabs = new HashMap<>();
 
 	private final Comparator<FarmingPatch> tabSorter = Comparator
@@ -69,6 +71,10 @@ class FarmingWorld
 			new FarmingPatch("", Varbits.FARMING_4771, PatchImplementation.CACTUS, NpcID.AYESHA)
 		), 13362, 13105);
 
+		add(new FarmingRegion("Aldarin", 5421, false,
+			new FarmingPatch("", Varbits.FARMING_4771, PatchImplementation.HOPS, NpcID.ERCOS)
+		), 5165, 5166, 5422, 5677, 5678);
+
 		add(new FarmingRegion("Ardougne", 10290, false,
 			new FarmingPatch("", Varbits.FARMING_4771, PatchImplementation.BUSH, NpcID.TORRELL)
 		), 10546);
@@ -79,6 +85,10 @@ class FarmingWorld
 			new FarmingPatch("", Varbits.FARMING_4774, PatchImplementation.HERB),
 			new FarmingPatch("", Varbits.FARMING_4775, PatchImplementation.COMPOST)
 		));
+
+		add(new FarmingRegion("Avium Savannah", 6702, true,
+			new FarmingPatch("", Varbits.FARMING_4771, PatchImplementation.HARDWOOD_TREE, NullNpcID.NULL_13401)
+		), 6446);
 
 		add(new FarmingRegion("Brimhaven", 11058, false,
 			new FarmingPatch("", Varbits.FARMING_4771, PatchImplementation.FRUIT_TREE, NpcID.GARTH),
@@ -115,6 +125,14 @@ class FarmingWorld
 				return loc.getX() >= 2840 || loc.getY() < 3440 || loc.getPlane() == 1;
 			}
 		});
+
+		add(new FarmingRegion("Civitas illa Fortis", 6192, false,
+			new FarmingPatch("North", Varbits.FARMING_4771, PatchImplementation.ALLOTMENT, NpcID.HARMINIA, 0),
+			new FarmingPatch("South", Varbits.FARMING_4772, PatchImplementation.ALLOTMENT, NpcID.HARMINIA, 1),
+			new FarmingPatch("", Varbits.FARMING_4773, PatchImplementation.FLOWER),
+			new FarmingPatch("", Varbits.FARMING_4774, PatchImplementation.HERB),
+			new FarmingPatch("", Varbits.FARMING_4775, PatchImplementation.COMPOST)
+		), 6447, 6448, 6449, 6191, 6193);
 
 		add(new FarmingRegion("Champions' Guild", 12596, true,
 			new FarmingPatch("", Varbits.FARMING_4771, PatchImplementation.BUSH, NpcID.DREVEN)

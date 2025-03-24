@@ -125,8 +125,9 @@ public class CrypticClue extends ClueScroll implements NpcClueScroll, ObjectClue
 			.text("Come have a cip with this great soot covered denizen.")
 			.location(new WorldPoint(2527, 3891, 0))
 			.npc("Miner Magnus")
-			.solution("Talk to Miner Magnus on Miscellania, east of the fairy ring CIP. Answer: 8")
+			.solution("Talk to Miner Magnus on Miscellania, east of the fairy ring CIP.")
 			.questionText("How many coal rocks are around here?")
+			.answer("8")
 			.build(),
 		CrypticClue.builder()
 			.text("Citric cellar.")
@@ -198,7 +199,7 @@ public class CrypticClue extends ClueScroll implements NpcClueScroll, ObjectClue
 			.text("His bark is worse than his bite.")
 			.location(new WorldPoint(3499, 3503, 0))
 			.npc("Barker")
-			.solution("Speak to the Barker at Canifis's Barkers' Haberdashery.")
+			.solution("Speak to Barker at Canifis's Barkers' Haberdashery.")
 			.build(),
 		CrypticClue.builder()
 			.text("The beasts to my east snap claws and tails, The rest to my west can slide and eat fish. The force to my north will jump and they'll wail, Come dig by my fire and make a wish.")
@@ -415,8 +416,9 @@ public class CrypticClue extends ClueScroll implements NpcClueScroll, ObjectClue
 			.text("I have many arms but legs, I have just one. I have little family but my seed you can grow on, I am not dead, yet I am but a spirit, and my power, on your quests, you will earn the right to free it.")
 			.location(new WorldPoint(2544, 3170, 0))
 			.objectId(NullObjectID.NULL_1293)
-			.solution("Spirit Tree in Tree Gnome Village. Answer: 13112221")
+			.solution("Spirit Tree in Tree Gnome Village.")
 			.questionText("What is the next number in the sequence? 1, 11, 21, 1211, 111221, 312211")
+			.answer("13112221")
 			.build(),
 		CrypticClue.builder()
 			.text("I am the one who watches the giants. The giants in turn watch me. I watch with two while they watch with one. Come seek where I may be.")
@@ -591,8 +593,9 @@ public class CrypticClue extends ClueScroll implements NpcClueScroll, ObjectClue
 			.text("He knows just how easy it is to lose track of time.")
 			.location(new WorldPoint(2570, 3250, 0))
 			.npc("Brother Kojo")
-			.solution("Speak to Brother Kojo in the Clock Tower. Answer: 22")
+			.solution("Speak to Brother Kojo in the Clock Tower.")
 			.questionText("On a clock, how many times a day do the minute hand and the hour hand overlap?")
+			.answer("22")
 			.build(),
 		CrypticClue.builder()
 			.text("A great view - watch the rapidly drying hides get splashed. Check the box you are sitting on.")
@@ -906,7 +909,7 @@ public class CrypticClue extends ClueScroll implements NpcClueScroll, ObjectClue
 			.build(),
 		CrypticClue.builder()
 			.text("Surround my bones in fire, ontop the wooden pyre. Finally lay me to rest, before my one last test.")
-			.solution("Kill a confused/lost barbarian to receive mangled bones. Construct and burn a pyre ship. Kill the ferocious barbarian spirit that spawns to receive a clue casket.")
+			.solution("Kill a Confused or Lost barbarian in the Ancient Cavern to receive mangled bones. Construct and burn a pyre ship with logs, a tinderbox, and an axe. Kill the Ferocious barbarian spirit that spawns.")
 			.build(),
 		CrypticClue.builder()
 			.text("Fiendish cooks probably won't dig the dirty dishes.")
@@ -929,7 +932,7 @@ public class CrypticClue extends ClueScroll implements NpcClueScroll, ObjectClue
 			.text("One of several rhyming brothers, in business attire with an obsession for paper work.")
 			.location(new WorldPoint(3186, 3936, 0))
 			.npc("Piles")
-			.solution("Speak to Piles in the Wilderness Resource Area. An entry fee of 7,500 coins is required, or less if Wilderness Diaries have been completed.")
+			.solutionProvider((plugin) -> "Speak to Piles in the Wilderness Resource Area." + getResourceAreaCost(plugin))
 			.build(),
 		CrypticClue.builder()
 			.text("Search the drawers on the ground floor of a building facing Ardougne's market.")
@@ -1004,8 +1007,9 @@ public class CrypticClue extends ClueScroll implements NpcClueScroll, ObjectClue
 			.text("Speak to a referee.")
 			.location(new WorldPoint(2386, 3487, 0))
 			.npc("Gnome ball referee")
-			.solution("Talk to a Gnome ball referee found on the Gnome ball field in the Gnome Stronghold. Answer: 5096")
+			.solution("Talk to a Gnome ball referee found on the Gnome ball field in the Gnome Stronghold.")
 			.questionText("What is 57 x 89 + 23?")
+			.answer("5096")
 			.build(),
 		CrypticClue.builder()
 			.text("This crate holds a better reward than a broken arrow.")
@@ -1070,7 +1074,7 @@ public class CrypticClue extends ClueScroll implements NpcClueScroll, ObjectClue
 		CrypticClue.builder()
 			.text("A ring of water surrounds 4 powerful rings, dig above the ladder located there.")
 			.location(new WorldPoint(1910, 4367, 0))
-			.solution("Dig by the ladder leading to the Dagannoth Kings room in the Waterbirth Island Dungeon. Bring a pet rock and rune thrownaxe.")
+			.solution("Dig by the ladder leading to the Dagannoth Kings room in the Waterbirth Island Dungeon. Bring a pet rock and rune thrownaxe OR have 85 agility.")
 			.build(),
 		CrypticClue.builder()
 			.text("This place sure is a mess.")
@@ -1108,7 +1112,7 @@ public class CrypticClue extends ClueScroll implements NpcClueScroll, ObjectClue
 		CrypticClue.builder()
 			.text("If you're feeling brave, dig beneath the dragon's eye.")
 			.location(new WorldPoint(2410, 4714, 0))
-			.solution("Dig below the mossy rock under the Viyeldi caves (Legend's Quest). Items needed: Pickaxe, unpowered orb, lockpick, spade, any charge orb spell, and either 79 agility or an axe and machete.")
+			.solution("Dig below the mossy rock under the Viyeldi caves (Legend's Quest). Items needed: Pickaxe, unpowered orb, lockpick, spade, any charge orb spell, and either 79 agility or an axe and machete. With 96 agility no items are needed.")
 			.build(),
 		CrypticClue.builder()
 			.text("Search the tents in the Imperial Guard camp in Burthorpe for some boxes.")
@@ -1323,7 +1327,7 @@ public class CrypticClue extends ClueScroll implements NpcClueScroll, ObjectClue
 			.text("Come brave adventurer, your sense is on fire. If you talk to me, it's an old god you desire.")
 			.locationProvider(CrypticClue::getViggoraLocation)
 			.npc("Viggora")
-			.solution("Speak to Viggora while wearing a ring of visibility or ring of shadows, and a Ghostspeak amulet.")
+			.solutionProvider(p -> "Speak to Viggora in " + getViggoraLocationString(p) + " while wearing a ring of visibility or ring of shadows, and a Ghostspeak amulet.")
 			.build(),
 		CrypticClue.builder()
 			.text("2 musical birds. Dig in front of the spinning light.")
@@ -1350,10 +1354,10 @@ public class CrypticClue extends ClueScroll implements NpcClueScroll, ObjectClue
 			.solution("Horvik's in Varrock.")
 			.build(),
 		CrypticClue.builder()
-			.text("Ghommal wishes to be impressed by how strong your equipment is.")
+			.text("The doorman of the Warriors' Guild wishes to be impressed by how strong your equipment is.")
 			.location(new WorldPoint(2878, 3546, 0))
 			.npc("Ghommal")
-			.solution("Speak to Ghommal at the Warriors' Guild with a total Melee Strength bonus of over 100.")
+			.solution("Speak to the doorman of the Warriors' Guild with a total Melee Strength bonus of over 100.")
 			.build(),
 		CrypticClue.builder()
 			.text("Shhhh!")
@@ -1393,7 +1397,7 @@ public class CrypticClue extends ClueScroll implements NpcClueScroll, ObjectClue
 		CrypticClue.builder()
 			.text("Desert insects is what I see. Taking care of them was my responsibility. Your solution is found by digging near me.")
 			.location(new WorldPoint(3307, 9505, 0))
-			.solution("Dig next to the Entomologist, Kalphite area, near Shantay Pass.")
+			.solution("Dig next to the Entomologist, Kalphite Cave, east of Shantay Pass.")
 			.build(),
 		CrypticClue.builder()
 			.text("Search the crates in the most north-western house in Al Kharid.")
@@ -1503,11 +1507,12 @@ public class CrypticClue extends ClueScroll implements NpcClueScroll, ObjectClue
 			.solution("Search the drawers upstairs in Varrock east bank.")
 			.build(),
 		CrypticClue.builder()
-			.text("Speak to Hazelmere.")
-			.location(new WorldPoint(2677, 3088, 0))
-			.npc("Hazelmere")
-			.solution("Located upstairs in the house east of Yanille, north of fairy ring CLS. Answer: 6859")
+			.text("Speak to Uglug Nar.")
+			.location(new WorldPoint(2444, 3049, 0))
+			.npc("Uglug Nar")
+			.solution("Outside Jiggig, south of Castle Wars.")
 			.questionText("What is 19 to the power of 3?")
+			.answer("6859")
 			.build(),
 		CrypticClue.builder()
 			.text("The effects of this fire are magnified.")
@@ -1614,15 +1619,15 @@ public class CrypticClue extends ClueScroll implements NpcClueScroll, ObjectClue
 			.solution("The Crystal chest can be found in the house directly south of the Witch's house in Taverley.")
 			.build(),
 		CrypticClue.builder()
-			.text("Talk to Turael in Burthorpe.")
+			.text("Talk to the Slayer Master in Burthorpe.")
 			.location(new WorldPoint(2930, 3536, 0))
-			.npc("Turael")
-			.solution("Turael is located in the small house east of the Toad and Chicken inn in Burthorpe.")
+			.npcProvider(CrypticClue::getBurthorpeSlayerMaster)
+			.solutionProvider((plugin) -> getBurthorpeSlayerMaster(plugin) + " is located in the small house east of the Toad and Chicken inn in Burthorpe.")
 			.build(),
 		CrypticClue.builder()
 			.text("More resources than I can handle, but in a very dangerous area. Can't wait to strike gold!")
 			.location(new WorldPoint(3183, 3941, 0))
-			.solution("Dig between the three gold ores in the Wilderness Resource Area.")
+			.solutionProvider((plugin) -> "Dig between the three gold ores in the Wilderness Resource Area." + getResourceAreaCost(plugin))
 			.build(),
 		CrypticClue.builder()
 			.text("Observing someone in a swamp, under the telescope lies treasure.")
@@ -1690,6 +1695,39 @@ public class CrypticClue extends ClueScroll implements NpcClueScroll, ObjectClue
 			.text("The Big High War God left his mark on this place.")
 			.location(new WorldPoint(3572, 4372, 0))
 			.solution("Dig anywhere in Yu'biusk. Fairy ring BLQ.")
+			.build(),
+		CrypticClue.builder()
+			.text("Search the food barrel at the top of the Hunter Guild.")
+			.location(new WorldPoint(1560, 3048, 2))
+			.objectId(ObjectID.FOOD_POT)
+			.solution("Search the food pot at the top of the Hunter Guild.")
+			.build(),
+		CrypticClue.builder()
+			.text("Are you somewhat entertained?")
+			.location(new WorldPoint(1802, 9504, 0))
+			.npc("Gloria")
+			.solution("Speak to Gloria inside the Fortis Colosseum")
+			.build(),
+		CrypticClue.builder()
+			.text("With drinks and dwarves I make my way, upon my head a glass will stay.")
+			.location(new WorldPoint(1432, 9584, 0))
+			.npc("Funbo")
+			.solution("Speak to Funbo inside Cam Torum's pub.")
+			.build(),
+		CrypticClue.builder()
+			.text("Dig at a waterfall by the pines in the serpent's shadow.")
+			.location(new WorldPoint(1490, 3257, 0))
+			.solution("Dig by the waterfall in Quetzacalli Gorge.")
+			.build(),
+		CrypticClue.builder()
+			.text("Banish a chilling spirit.")
+			.npc("Frost Nagua")
+			.solution("Kill a frost nagua.")
+			.build(),
+		CrypticClue.builder()
+			.text("Dig outside the bank on Aldarin.")
+			.location(new WorldPoint(1390, 2926, 0))
+			.solution("Dig outside the bank on Aldarin. Fairy ring CKQ.")
 			.build()
 	);
 
@@ -1697,40 +1735,59 @@ public class CrypticClue extends ClueScroll implements NpcClueScroll, ObjectClue
 	private static final WorldPoint VIGGORA_SLAYER_TOWER = new WorldPoint(3447, 3547, 1);
 	private static final WorldPoint VIGGORA_EDGEVILLE_DUNGEON = new WorldPoint(3121, 9995, 0);
 
+	private static final int DEFAULT_RESOURCE_AREA_COST = 7500;
+
 	private final String text;
 	@Nullable
-	private final String npc;
+	@Getter(AccessLevel.PRIVATE)
+	private final Function<ClueScrollPlugin, String> npcProvider;
 	private final int objectId;
+	@Getter(AccessLevel.NONE)
 	private final String solution;
 	@Nullable
 	private final String questionText;
 	@Nullable
 	@Getter(AccessLevel.PRIVATE)
 	private final Function<ClueScrollPlugin, WorldPoint> locationProvider;
+	@Getter(AccessLevel.PRIVATE)
+	private final Function<ClueScrollPlugin, String> solutionProvider;
+	@Nullable
+	private final String answer;
 	private final List<Integer> npcRegions;
 
 	@Builder
 	private CrypticClue(
 		String text,
 		@Nullable String npc,
+		@Nullable Function<ClueScrollPlugin, String> npcProvider,
 		int objectId,
 		@Nullable WorldPoint location,
 		@Nullable Function<ClueScrollPlugin, WorldPoint> locationProvider,
+		@Nullable Function<ClueScrollPlugin, String> solutionProvider,
 		String solution,
 		@Nullable String questionText,
+		@Nullable String answer,
 		boolean requiresLight,
 		@Singular List<Integer> npcRegions
 	)
 	{
 		this.text = text;
-		this.npc = npc;
+		this.npcProvider = npcProvider != null ? npcProvider : (npc != null ? (plugin) -> npc : null);
 		this.objectId = objectId > 0 ? objectId : -1;
 		this.locationProvider = locationProvider != null ? locationProvider : (location != null ? (plugin) -> location : null);
+		this.solutionProvider = solutionProvider != null ? solutionProvider : (plugin) -> solution;
 		this.solution = solution;
 		this.questionText = questionText;
+		this.answer = answer;
 		this.npcRegions = npcRegions;
-		setRequiresSpade(this.locationProvider != null && npc == null && this.objectId == -1);
+		setRequiresSpade(this.locationProvider != null && this.npcProvider == null && this.objectId == -1);
 		setRequiresLight(requiresLight);
+	}
+
+	@Nullable
+	public String getNpc(ClueScrollPlugin plugin)
+	{
+		return npcProvider == null ? null : npcProvider.apply(plugin);
 	}
 
 	@Nullable
@@ -1740,16 +1797,22 @@ public class CrypticClue extends ClueScroll implements NpcClueScroll, ObjectClue
 		return locationProvider == null ? null : locationProvider.apply(plugin);
 	}
 
+	public String getSolution(ClueScrollPlugin plugin)
+	{
+		return solutionProvider.apply(plugin);
+	}
+
 	@Override
 	public void makeOverlayHint(PanelComponent panelComponent, ClueScrollPlugin plugin)
 	{
 		panelComponent.getChildren().add(TitleComponent.builder().text("Cryptic Clue").build());
 
-		if (getNpc() != null)
+		final String npc = getNpc(plugin);
+		if (npc != null)
 		{
 			panelComponent.getChildren().add(LineComponent.builder().left("NPC:").build());
 			panelComponent.getChildren().add(LineComponent.builder()
-				.left(getNpc())
+				.left(npc)
 				.leftColor(TITLED_CONTENT_COLOR)
 				.build());
 		}
@@ -1775,9 +1838,18 @@ public class CrypticClue extends ClueScroll implements NpcClueScroll, ObjectClue
 
 		panelComponent.getChildren().add(LineComponent.builder().left("Solution:").build());
 		panelComponent.getChildren().add(LineComponent.builder()
-			.left(getSolution())
+			.left(getSolution(plugin))
 			.leftColor(TITLED_CONTENT_COLOR)
 			.build());
+
+		if (getAnswer() != null)
+		{
+			panelComponent.getChildren().add(LineComponent.builder().left("Answer:").build());
+			panelComponent.getChildren().add(LineComponent.builder()
+				.left(getAnswer())
+				.leftColor(TITLED_CONTENT_COLOR)
+				.build());
+		}
 
 		renderOverlayNote(panelComponent, plugin);
 	}
@@ -1787,7 +1859,7 @@ public class CrypticClue extends ClueScroll implements NpcClueScroll, ObjectClue
 	{
 		// Mark dig location
 		WorldPoint location = getLocation(plugin);
-		if (location != null && getNpc() == null && objectId == -1)
+		if (location != null && getNpc(plugin) == null && objectId == -1)
 		{
 			LocalPoint localLocation = LocalPoint.fromWorld(plugin.getClient(), location);
 
@@ -1846,7 +1918,7 @@ public class CrypticClue extends ClueScroll implements NpcClueScroll, ObjectClue
 	@Override
 	public String[] getNpcs(ClueScrollPlugin plugin)
 	{
-		return new String[]{npc};
+		return new String[]{getNpc(plugin)};
 	}
 
 	@Override
@@ -1861,6 +1933,7 @@ public class CrypticClue extends ClueScroll implements NpcClueScroll, ObjectClue
 		return new int[]{text.hashCode()};
 	}
 
+	@SuppressWarnings("PMD.UnusedPrivateMethod")
 	private static WorldPoint getViggoraLocation(ClueScrollPlugin plugin)
 	{
 		int varb = plugin.getClient().getVarbitValue(Varbits.VIGGORA_LOCATION);
@@ -1879,5 +1952,47 @@ public class CrypticClue extends ClueScroll implements NpcClueScroll, ObjectClue
 				log.warn("Unknown viggora location for unexpected varb value {}", varb);
 				return null;
 		}
+	}
+
+	private static String getViggoraLocationString(ClueScrollPlugin plugin)
+	{
+		int varb = plugin.getClient().getVarbitValue(Varbits.VIGGORA_LOCATION);
+		switch (varb)
+		{
+			case 1:
+				return "the Rogue's Castle";
+			case 2:
+				return "the Slayer tower";
+			case 3:
+				return "the Edgeville dungeon";
+			default:
+				return "?";
+		}
+	}
+
+	private static String getResourceAreaCost(ClueScrollPlugin plugin)
+	{
+		if (plugin.getClient().getVarbitValue(Varbits.DIARY_WILDERNESS_ELITE) == 1)
+		{
+			return "";
+		}
+
+		int resourceAreaCost = DEFAULT_RESOURCE_AREA_COST;
+
+		if (plugin.getClient().getVarbitValue(Varbits.DIARY_WILDERNESS_HARD) == 1)
+		{
+			resourceAreaCost = (int) (DEFAULT_RESOURCE_AREA_COST * 0.5);
+		}
+		else if (plugin.getClient().getVarbitValue(Varbits.DIARY_WILDERNESS_MEDIUM) == 1)
+		{
+			resourceAreaCost = (int) (DEFAULT_RESOURCE_AREA_COST * 0.8);
+		}
+
+		return String.format(" An entry fee of %,d coins is required.", resourceAreaCost);
+	}
+
+	private static String getBurthorpeSlayerMaster(ClueScrollPlugin plugin)
+	{
+		return plugin.getClient().getVarbitValue(Varbits.BURTHORPE_SLAYER_MASTER) == 0 ? "Turael" : "Aya";
 	}
 }

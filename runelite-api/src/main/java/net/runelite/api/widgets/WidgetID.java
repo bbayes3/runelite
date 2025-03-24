@@ -121,7 +121,6 @@ public final class WidgetID
 	public static final int DIALOG_PLAYER_GROUP_ID = InterfaceID.DIALOG_PLAYER;
 	public static final int DRIFT_NET_FISHING_REWARD_GROUP_ID = InterfaceID.DRIFT_NET_FISHING_REWARD;
 	public static final int FOSSIL_ISLAND_OXYGENBAR_ID = InterfaceID.FOSSIL_ISLAND_OXYGEN_BAR;
-	public static final int MINIGAME_TAB_ID = InterfaceID.MINIGAMES;
 	public static final int SPELLBOOK_GROUP_ID = InterfaceID.SPELLBOOK;
 	public static final int PVP_GROUP_ID = InterfaceID.PVP;
 	public static final int FISHING_TRAWLER_GROUP_ID = InterfaceID.TRAWLER;
@@ -162,7 +161,6 @@ public final class WidgetID
 	public static final int CHAMBERS_OF_XERIC_STORAGE_UNIT_SHARED_GROUP_ID = InterfaceID.CHAMBERS_OF_XERIC_STORAGE_UNIT_SHARED;
 	public static final int CHAMBERS_OF_XERIC_STORAGE_UNIT_INVENTORY_GROUP_ID = InterfaceID.CHAMBERS_OF_XERIC_INVENTORY;
 	public static final int DUEL_INVENTORY_GROUP_ID = InterfaceID.DUEL_INVENTORY;
-	public static final int DUEL_INVENTORY_OTHER_GROUP_ID = InterfaceID.DUEL_INVENTORY_OTHER;
 	public static final int TRAILBLAZER_AREAS_GROUP_ID = InterfaceID.TRAILBLAZER_AREAS;
 	public static final int TEMPOROSS_GROUP_ID = InterfaceID.TEMPOROSS;
 	public static final int TEMPOROSS_LOBBY_GROUP_ID = InterfaceID.TEMPOROSS_LOBBY;
@@ -197,7 +195,6 @@ public final class WidgetID
 	public static final int BGR_RANK_RUNEVERSI_GROUP_ID = InterfaceID.BGR_RANK_RUNEVERSI;
 	public static final int AGILITY_ARENA_HUD_GROUP_ID = InterfaceID.AGILITY_ARENA;
 	public static final int GNOMEBALL_SCORE_GROUP_ID = InterfaceID.GNOMEBALL;
-	public static final int CLANRANK_POPUP = InterfaceID.CLANRANK_POPUP;
 	public static final int SANITY_GROUP_ID = InterfaceID.SANITY;
 	public static final int THE_STRANGLER_INFECTION_GROUP_ID = InterfaceID.STRANGLER;
 }

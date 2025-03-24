@@ -93,7 +93,7 @@ public class SkillChallengeClue extends ClueScroll implements NpcClueScroll, Nam
 		item(ItemID._3RD_AGE_PICKAXE),
 		item(ItemID.CRYSTAL_PICKAXE),
 		item(ItemID.CRYSTAL_PICKAXE_INACTIVE),
-		item(ItemID.TRAILBLAZER_PICKAXE)
+		item(ItemID.ECHO_PICKAXE)
 	);
 
 	private static final AnyRequirementCollection ANY_AXE = any("Any Axe",
@@ -125,7 +125,7 @@ public class SkillChallengeClue extends ClueScroll implements NpcClueScroll, Nam
 		item(ItemID.CRYSTAL_AXE_INACTIVE),
 		item(ItemID.CRYSTAL_FELLING_AXE),
 		item(ItemID.CRYSTAL_FELLING_AXE_INACTIVE),
-		item(ItemID.TRAILBLAZER_AXE)
+		item(ItemID.ECHO_AXE)
 	);
 
 	private static final AnyRequirementCollection ANY_HARPOON = any("Harpoon",
@@ -139,7 +139,7 @@ public class SkillChallengeClue extends ClueScroll implements NpcClueScroll, Nam
 		item(ItemID.INFERNAL_HARPOON_UNCHARGED_25367),
 		item(ItemID.CRYSTAL_HARPOON),
 		item(ItemID.CRYSTAL_HARPOON_INACTIVE),
-		item(ItemID.TRAILBLAZER_HARPOON)
+		item(ItemID.ECHO_HARPOON)
 	);
 
 	private static final AnyRequirementCollection ANY_HAMMER = any("Hammer",
@@ -185,7 +185,7 @@ public class SkillChallengeClue extends ClueScroll implements NpcClueScroll, Nam
 		new SkillChallengeClue("Complete a lap of Ape atoll agility course.", true, any("Ninja Monkey Greegree", item(ItemID.NINJA_MONKEY_GREEGREE), item(ItemID.NINJA_MONKEY_GREEGREE_4025), item(ItemID.KRUK_MONKEY_GREEGREE))),
 		new SkillChallengeClue("Create a super defence potion.", item(ItemID.CADANTINE_POTION_UNF), item(ItemID.WHITE_BERRIES)),
 		new SkillChallengeClue("Steal from a chest in Ardougne Castle."),
-		new SkillChallengeClue("Craft a green dragonhide body.", xOfItem(ItemID.GREEN_DRAGON_LEATHER, 3), item(ItemID.NEEDLE), item(ItemID.THREAD)),
+		new SkillChallengeClue("Craft a green dragonhide body.", xOfItem(ItemID.GREEN_DRAGON_LEATHER, 3), any("Needle", item(ItemID.NEEDLE), item(ItemID.COSTUME_NEEDLE)), any("Thread", item(ItemID.THREAD), item(ItemID.COSTUME_NEEDLE))),
 		new SkillChallengeClue("String a yew longbow.", item(ItemID.YEW_LONGBOW_U), item(ItemID.BOW_STRING)),
 		new SkillChallengeClue("Kill a Dust Devil.", "slay a dust devil.", true,
 			any("Facemask or Slayer Helmet",
@@ -196,7 +196,7 @@ public class SkillChallengeClue extends ClueScroll implements NpcClueScroll, Nam
 					.orElseGet(Stream::empty)
 					.map(ItemRequirements::item)
 					.toArray(SingleItemRequirement[]::new))),
-		new SkillChallengeClue("Catch a black warlock.", item(ItemID.BUTTERFLY_JAR), any("Butterfly Net", item(ItemID.BUTTERFLY_NET), item(ItemID.MAGIC_BUTTERFLY_NET))),
+		new SkillChallengeClue("Catch a black warlock.", any("Butterfly Net", item(ItemID.BUTTERFLY_NET), item(ItemID.MAGIC_BUTTERFLY_NET))),
 		new SkillChallengeClue("Catch a red chinchompa.", item(ItemID.BOX_TRAP)),
 		new SkillChallengeClue("Mine a mithril ore.", ANY_PICKAXE),
 		new SkillChallengeClue("Smith a mithril 2h sword.", ANY_HAMMER, xOfItem(ItemID.MITHRIL_BAR, 3)),
@@ -252,7 +252,8 @@ public class SkillChallengeClue extends ClueScroll implements NpcClueScroll, Nam
 		new SkillChallengeClue("Kill a Fiyr shade inside Mort'tons shade catacombs.",
 			any("Any Gold or Silver Shade Key",
 				item(ItemID.GOLD_KEY_RED), item(ItemID.GOLD_KEY_BROWN), item(ItemID.GOLD_KEY_CRIMSON), item(ItemID.GOLD_KEY_BLACK), item(ItemID.GOLD_KEY_PURPLE),
-				item(ItemID.SILVER_KEY_RED), item(ItemID.SILVER_KEY_BROWN), item(ItemID.SILVER_KEY_CRIMSON), item(ItemID.SILVER_KEY_BLACK), item(ItemID.SILVER_KEY_PURPLE)))
+				item(ItemID.SILVER_KEY_RED), item(ItemID.SILVER_KEY_BROWN), item(ItemID.SILVER_KEY_CRIMSON), item(ItemID.SILVER_KEY_BLACK), item(ItemID.SILVER_KEY_PURPLE))),
+		new SkillChallengeClue("Catch a tecu salamander.", item(ItemID.ROPE), item(ItemID.SMALL_FISHING_NET))
 	);
 
 	private final ChallengeType type;

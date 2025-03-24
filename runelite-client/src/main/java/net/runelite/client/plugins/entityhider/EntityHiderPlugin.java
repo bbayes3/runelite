@@ -44,6 +44,7 @@ import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.events.ConfigChanged;
 import net.runelite.client.game.NpcUtil;
+import net.runelite.client.party.PartyService;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 
@@ -69,7 +70,7 @@ public class EntityHiderPlugin extends Plugin
 		NpcID.EVIL_BOB, NpcID.EVIL_BOB_6754,
 		NpcID.FLIPPA_6744,
 		NpcID.FREAKY_FORESTER_6748,
-		NpcID.FROG_5429, NpcID.FROG_5430, NpcID.FROG_5431, NpcID.FROG_5432, NpcID.FROG, NpcID.FROG_PRINCE, NpcID.FROG_PRINCESS,
+		NpcID.FROG_5429, NpcID.FROG_5430, NpcID.FROG_5431, NpcID.FROG_5432, NpcID.FROG, NpcID.FROG_PRINCE, NpcID.FROG_PRINCESS, NpcID.FROG_PRIN, NpcID.FROG_PRIN_13444,
 		NpcID.GENIE, NpcID.GENIE_327,
 		NpcID.GILES, NpcID.GILES_5441,
 		NpcID.LEO_6746,
@@ -98,8 +99,12 @@ public class EntityHiderPlugin extends Plugin
 	@Inject
 	private NpcUtil npcUtil;
 
+	@Inject
+	private PartyService partyService;
+
 	private boolean hideOthers;
 	private boolean hideOthers2D;
+	private boolean hidePartyMembers;
 	private boolean hideFriends;
 	private boolean hideFriendsChatMembers;
 	private boolean hideClanMembers;
@@ -151,6 +156,7 @@ public class EntityHiderPlugin extends Plugin
 		hideOthers = config.hideOthers();
 		hideOthers2D = config.hideOthers2D();
 
+		hidePartyMembers = config.hidePartyMembers();
 		hideFriends = config.hideFriends();
 		hideFriendsChatMembers = config.hideFriendsChatMembers();
 		hideClanMembers = config.hideClanChatMembers();
@@ -199,6 +205,10 @@ public class EntityHiderPlugin extends Plugin
 				return false; // hide
 			}
 
+			if (partyService.isInParty() && partyService.getMemberByDisplayName(player.getName()) != null)
+			{
+				return !hidePartyMembers;
+			}
 			if (player.isFriend())
 			{
 				return !hideFriends;

@@ -26,7 +26,6 @@ package net.runelite.client.plugins.inventorytags;
 
 import com.google.gson.Gson;
 import com.google.inject.Provides;
-import java.applet.Applet;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -42,6 +41,7 @@ import static net.runelite.api.InventoryID.INVENTORY;
 import net.runelite.api.Item;
 import net.runelite.api.ItemContainer;
 import net.runelite.api.KeyCode;
+import net.runelite.api.Menu;
 import net.runelite.api.MenuAction;
 import net.runelite.api.MenuEntry;
 import net.runelite.api.events.MenuOpened;
@@ -185,7 +185,8 @@ public class InventoryTagsPlugin extends Plugin
 				final MenuEntry parent = client.createMenuEntry(idx)
 					.setOption("Inventory tag")
 					.setTarget(entry.getTarget())
-					.setType(MenuAction.RUNELITE_SUBMENU);
+					.setType(MenuAction.RUNELITE);
+				final Menu submenu = parent.createSubMenu();
 
 				Set<Color> invEquipmentColors = new HashSet<>();
 				invEquipmentColors.addAll(getColorsFromItemContainer(INVENTORY));
@@ -194,10 +195,9 @@ public class InventoryTagsPlugin extends Plugin
 				{
 					if (tag == null || !tag.color.equals(color))
 					{
-						client.createMenuEntry(idx)
+						submenu.createMenuEntry(0)
 							.setOption(ColorUtil.prependColorTag("Color", color))
 							.setType(MenuAction.RUNELITE)
-							.setParent(parent)
 							.onClick(e ->
 							{
 								Tag t = new Tag();
@@ -207,16 +207,15 @@ public class InventoryTagsPlugin extends Plugin
 					}
 				}
 
-				client.createMenuEntry(idx)
+				submenu.createMenuEntry(0)
 					.setOption("Pick")
 					.setType(MenuAction.RUNELITE)
-					.setParent(parent)
 					.onClick(e ->
 					{
 						Color color = tag == null ? Color.WHITE : tag.color;
 						SwingUtilities.invokeLater(() ->
 						{
-							RuneliteColorPicker colorPicker = colorPickerManager.create(SwingUtilities.windowForComponent((Applet) client),
+							RuneliteColorPicker colorPicker = colorPickerManager.create(client,
 								color, "Inventory Tag", true);
 							colorPicker.setOnClose(c ->
 							{
@@ -230,10 +229,9 @@ public class InventoryTagsPlugin extends Plugin
 
 				if (tag != null)
 				{
-					client.createMenuEntry(idx)
+					submenu.createMenuEntry(0)
 						.setOption("Reset")
 						.setType(MenuAction.RUNELITE)
-						.setParent(parent)
 						.onClick(e -> unsetTag(itemId));
 				}
 			}
