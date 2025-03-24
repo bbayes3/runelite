@@ -598,10 +598,19 @@ public interface Client extends OAuthApi, GameEngine
 	World[] getWorldList();
 
 	/**
+	 * Get the client menu.
+	 */
+	@Nonnull
+	Menu getMenu();
+
+	/**
 	 * Create a new menu entry
 	 * @param idx the index to create the menu entry at. Accepts negative indexes eg. -1 inserts at the end.
 	 * @return the newly created menu entry
+	 * @see #getMenu()
+	 * @see Menu#createMenuEntry(int)
 	 */
+	@Deprecated
 	MenuEntry createMenuEntry(int idx);
 
 	/**
@@ -609,7 +618,10 @@ public interface Client extends OAuthApi, GameEngine
 	 * clicked and activated.
 	 *
 	 * @return array of open menu entries
+	 * @see #getMenu()
+	 * @see Menu#getMenuEntries()
 	 */
+	@Deprecated
 	MenuEntry[] getMenuEntries();
 
 	/**
@@ -619,7 +631,10 @@ public interface Client extends OAuthApi, GameEngine
 	 * event, since setting the menu entries will be overwritten the next frame
 	 *
 	 * @param entries new array of open menu entries
+	 * @see #getMenu()
+	 * @see Menu#setMenuEntries(MenuEntry[])
 	 */
+	@Deprecated
 	void setMenuEntries(MenuEntry[] entries);
 
 	/**
@@ -651,28 +666,36 @@ public interface Client extends OAuthApi, GameEngine
 	 * Get the menu x location. Only valid if the menu is open.
 	 *
 	 * @return the menu x location
+	 * @see Menu#getMenuX()
 	 */
+	@Deprecated
 	int getMenuX();
 
 	/**
 	 * Get the menu y location. Only valid if the menu is open.
 	 *
 	 * @return the menu y location
+	 * @see Menu#getMenuY()
 	 */
+	@Deprecated
 	int getMenuY();
 
 	/**
 	 * Get the menu height. Only valid if the menu is open.
 	 *
 	 * @return the menu height
+	 * @see Menu#getMenuHeight()
 	 */
+	@Deprecated
 	int getMenuHeight();
 
 	/**
 	 * Get the menu width. Only valid if the menu is open.
 	 *
 	 * @return the menu width
+	 * @see Menu#getMenuWidth()
 	 */
+	@Deprecated
 	int getMenuWidth();
 
 	/**
@@ -894,7 +917,9 @@ public interface Client extends OAuthApi, GameEngine
 	 *
 	 * @param prayer the prayer
 	 * @return true if the prayer is active, false otherwise
+	 * @deprecated this method does not properly handle deadeye/eagle eye or mystic vigour/might
 	 */
+	@Deprecated
 	boolean isPrayerActive(Prayer prayer);
 
 	/**
@@ -1057,6 +1082,21 @@ public interface Client extends OAuthApi, GameEngine
 	RuneLiteObject createRuneLiteObject();
 
 	/**
+	 * Registers a new {@link RuneLiteObjectController} to its corresponding {@link WorldView}.
+	 */
+	void registerRuneLiteObject(RuneLiteObjectController controller);
+
+	/**
+	 * Removes a new {@link RuneLiteObjectController} from its corresponding {@link WorldView}.
+	 */
+	void removeRuneLiteObject(RuneLiteObjectController controller);
+
+	/**
+	 * Checks whether a {@link RuneLiteObjectController} is registered to any {@link WorldView}.
+	 */
+	boolean isRuneLiteObjectRegistered(RuneLiteObjectController controller);
+
+	/**
 	 * Loads an unlit model from the cache. The returned model shares
 	 * data such as faces, face colors, face transparencies, and vertex points with
 	 * other models. If you want to mutate these you MUST call the relevant {@code cloneX}
@@ -1158,6 +1198,12 @@ public interface Client extends OAuthApi, GameEngine
 	 *               in the settings interface. if the sound effect volume is not muted, uses the set volume
 	 */
 	void playSoundEffect(int id, int volume);
+
+	/**
+	 * Get the currently playing midi requests.
+	 * @return
+	 */
+	List<MidiRequest> getActiveMidiRequests();
 
 	/**
 	 * Gets the clients graphic buffer provider.
@@ -1652,6 +1698,12 @@ public interface Client extends OAuthApi, GameEngine
 	void setInventoryDragDelay(int delay);
 
 	/**
+	 * Get the hostname of the current world
+	 * @return
+	 */
+	String getWorldHost();
+
+	/**
 	 * Gets a set of current world types that apply to the logged in world.
 	 *
 	 * @return the types for current world
@@ -2017,6 +2069,50 @@ public interface Client extends OAuthApi, GameEngine
 	WorldView getTopLevelWorldView();
 
 	/**
+	 * Whether camera shaking effects are disabled at e.g. Barrows, ToA
+	 * @return
+	 */
+	boolean isCameraShakeDisabled();
+
+	/**
+	 * Set whether to disable camera shaking effects at e.g. Barrows, ToA
+	 * @param disabled
+	 */
+	void setCameraShakeDisabled(boolean disabled);
+
+	/**
+	 * Draw all 2D extras. This is the default.
+	 */
+	int DRAW_2D_ALL = ~0;
+	/**
+	 * Hide all 2D extras.
+	 */
+	int DRAW_2D_NONE = 0;
+	/**
+	 * Render overhead text.
+	 */
+	int DRAW_2D_OVERHEAD_TEXT = 1;
+	/**
+	 * Render elements not otherwise specified in this bitflag.
+	 */
+	int DRAW_2D_OTHERS = 1 << 30;
+
+	/**
+	 * Gets the current draw2D mask. 
+	 * @return the current mask
+	 * @see Client#setDraw2DMask(int)
+	 */
+	@MagicConstant(intValues = {DRAW_2D_NONE, DRAW_2D_ALL, DRAW_2D_OVERHEAD_TEXT, DRAW_2D_OTHERS})
+	int getDraw2DMask();
+
+	/**
+	 * Sets the current draw2D mask.
+	 * Use bit operations on the value returned by {@link Client#getDraw2DMask()} to modify specific features.
+	 * @param mask The new mask.
+	 */
+	void setDraw2DMask(@MagicConstant(intValues = {DRAW_2D_NONE, DRAW_2D_ALL, DRAW_2D_OVERHEAD_TEXT, DRAW_2D_OTHERS}) int mask);
+
+	/**
 	 * Contains a 3D array of template chunks for instanced areas.
 	 * <p>
 	 * The array returned is of format [z][x][y], where z is the
@@ -2035,6 +2131,7 @@ public interface Client extends OAuthApi, GameEngine
 	 * @return the array of instance template chunks
 	 * @see Constants#CHUNK_SIZE
 	 * @see InstanceTemplates
+	 * @see WorldView#getInstanceTemplateChunks()
 	 */
 	@Deprecated
 	int[][][] getInstanceTemplateChunks();
@@ -2056,6 +2153,7 @@ public interface Client extends OAuthApi, GameEngine
 
 	/**
 	 * Checks whether the scene is in an instanced region.
+	 * @see WorldView#isInstance()
 	 */
 	@Deprecated
 	boolean isInInstancedRegion();
@@ -2070,6 +2168,7 @@ public interface Client extends OAuthApi, GameEngine
 
 	/**
 	 * Gets the current scene
+	 * @see WorldView#getScene()
 	 */
 	@Deprecated
 	default Scene getScene()
@@ -2082,6 +2181,7 @@ public interface Client extends OAuthApi, GameEngine
 	 * Gets a list of all valid players from the player cache.
 	 *
 	 * @return a list of all players
+	 * @see WorldView#players()
 	 */
 	@Deprecated
 	default List<Player> getPlayers()
@@ -2096,6 +2196,7 @@ public interface Client extends OAuthApi, GameEngine
 	 * Gets a list of all valid NPCs from the NPC cache.
 	 *
 	 * @return a list of all NPCs
+	 * @see WorldView#npcs()
 	 */
 	@Deprecated
 	default List<NPC> getNpcs()
@@ -2107,35 +2208,12 @@ public interface Client extends OAuthApi, GameEngine
 	}
 
 	/**
-	 * Gets an array of all cached NPCs.
-	 *
-	 * @return cached NPCs
-	 */
-	@Deprecated
-	default NPC[] getCachedNPCs()
-	{
-		var wv = getTopLevelWorldView();
-		return wv == null ? new NPC[0] : wv.npcs().getSparse();
-	}
-
-	/**
-	 * Gets an array of all cached players.
-	 *
-	 * @return cached players
-	 */
-	@Deprecated
-	default Player[] getCachedPlayers()
-	{
-		var wv = getTopLevelWorldView();
-		return wv == null ? new Player[0] : wv.players().getSparse();
-	}
-
-	/**
 	 * Gets an array of tile collision data.
 	 * <p>
 	 * The index into the array is the plane/z-axis coordinate.
 	 *
 	 * @return the collision data
+	 * @see WorldView#getCollisionMaps()
 	 */
 	@Nullable
 	@Deprecated
@@ -2155,6 +2233,7 @@ public interface Client extends OAuthApi, GameEngine
 	 * level use a tile offset and are still considered plane 0 by the game.
 	 *
 	 * @return the plane
+	 * @see WorldView#getPlane()
 	 */
 	@Deprecated
 	default int getPlane()
@@ -2167,6 +2246,7 @@ public interface Client extends OAuthApi, GameEngine
 	 * current scene.
 	 *
 	 * @return the tile heights
+	 * @see WorldView#getTileHeights()
 	 */
 	@Deprecated
 	default int[][][] getTileHeights()
@@ -2179,6 +2259,7 @@ public interface Client extends OAuthApi, GameEngine
 	 * current scene.
 	 *
 	 * @return the tile settings
+	 * @see WorldView#getTileSettings()
 	 */
 	@Deprecated
 	default byte[][][] getTileSettings()
@@ -2193,6 +2274,7 @@ public interface Client extends OAuthApi, GameEngine
 	 * the current scene (ie. the bottom-left most coordinates in the scene).
 	 *
 	 * @return the base x-axis coordinate
+	 * @see WorldView#getBaseX()
 	 */
 	@Deprecated
 	default int getBaseX()
@@ -2208,6 +2290,7 @@ public interface Client extends OAuthApi, GameEngine
 	 * the current scene (ie. the bottom-left most coordinates in the scene).
 	 *
 	 * @return the base y-axis coordinate
+	 * @see WorldView#getBaseY()
 	 */
 	@Deprecated
 	default int getBaseY()
@@ -2232,6 +2315,7 @@ public interface Client extends OAuthApi, GameEngine
 	 * @param targetX target x - if an actor target is supplied should be the target x
 	 * @param targetY target y - if an actor target is supplied should be the target y
 	 * @return the new projectile
+	 * @see WorldView#createProjectile(int, int, int, int, int, int, int, int, int, int, Actor, int, int)
 	 */
 	@Deprecated
 	default Projectile createProjectile(int id, int plane, int startX, int startY, int startZ, int startCycle, int endCycle,
@@ -2244,6 +2328,7 @@ public interface Client extends OAuthApi, GameEngine
 	 * Gets a list of all projectiles currently spawned.
 	 *
 	 * @return all projectiles
+	 * @see WorldView#getProjectiles()
 	 */
 	@Deprecated
 	default Deque<Projectile> getProjectiles()
@@ -2255,6 +2340,7 @@ public interface Client extends OAuthApi, GameEngine
 	 * Gets a list of all graphics objects currently drawn.
 	 *
 	 * @return all graphics objects
+	 * @see WorldView#getGraphicsObjects()
 	 */
 	@Deprecated
 	default Deque<GraphicsObject> getGraphicsObjects()
@@ -2266,6 +2352,7 @@ public interface Client extends OAuthApi, GameEngine
 	 * Gets the currently selected tile. (ie. last right clicked tile)
 	 *
 	 * @return the selected tile
+	 * @see WorldView#getSelectedSceneTile()
 	 */
 	@Deprecated
 	@Nullable
@@ -2273,4 +2360,12 @@ public interface Client extends OAuthApi, GameEngine
 	{
 		return getTopLevelWorldView().getSelectedSceneTile();
 	}
+
+	/**
+	 * Applies an animation to a Model. The returned model is shared and shouldn't be used
+	 * after any other call to applyTransformations, including calls made by the client internally.
+	 * Vertices are cloned from the source model. Face transparencies are copied if either animation
+	 * animates transparency, otherwise it will share a reference. All other fields share a reference.
+	 */
+	Model applyTransformations(Model model, @Nullable Animation animA, int frameA, @Nullable Animation animB, int frameB);
 }
