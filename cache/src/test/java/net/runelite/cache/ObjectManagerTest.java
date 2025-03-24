@@ -47,8 +47,8 @@ public class ObjectManagerTest
 
 	public void test() throws IOException
 	{
-		File dumpDir = new File(System.getProperty("user.home") + "\\IdeaProjects\\pkhonor-cache-updater\\new_cache\\osrs\\cache\\export\\objects"),
-			javaDir = new File(System.getProperty("user.home") + "\\IdeaProjects\\pkhonor-cache-updater\\new_cache\\osrs\\cache\\export\\objects");
+		File dumpDir = new File("./extractedData/ObjectDefinitions/"),
+			javaDir = new File("./extractedData/ObjectDefinitions/");
 
 		if (!dumpDir.exists()) {
 			dumpDir.mkdirs();

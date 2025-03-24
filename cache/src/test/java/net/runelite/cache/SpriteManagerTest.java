@@ -44,7 +44,7 @@ public class SpriteManagerTest
 	@Test
 	public void test() throws IOException
 	{
-		File dumpDir = new File(System.getProperty("user.home") + "\\IdeaProjects\\pkhonor-cache-updater\\new_cache\\osrs\\cache\\export\\sprites");
+		File dumpDir = new File("./extractedData/Sprites/");
 		if (!dumpDir.exists()) {
 			dumpDir.mkdirs();
 		}

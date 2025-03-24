@@ -55,7 +55,7 @@ public class SpotanimDumperTest
 	@Test
 	public void test() throws IOException
 	{
-		File dumpDir = new File(System.getProperty("user.home") + "\\IdeaProjects\\pkhonor-cache-updater\\new_cache\\osrs\\cache\\export\\gfx");
+		File dumpDir = new File("./extractedData/GraphicsDefinitions/");
 		int count = 0;
 
 		if (!dumpDir.exists()) {

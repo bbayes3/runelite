@@ -55,7 +55,7 @@ public class ParamDumper
 	@Test
 	public void test() throws IOException
 	{
-		File dumpDir = new File(System.getProperty("user.home") + "\\IdeaProjects\\pkhonor-cache-updater\\new_cache\\osrs\\cache\\export\\params");
+		File dumpDir = new File("./extractedData/Params/");
 		int count = 0;
 		if (!dumpDir.exists()) {
 			dumpDir.mkdirs();

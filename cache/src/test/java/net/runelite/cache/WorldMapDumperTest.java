@@ -55,12 +55,13 @@ public class WorldMapDumperTest
 	private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
 	@Test
-	@Ignore
 	public void extract() throws IOException
 	{
 		File base = StoreLocation.LOCATION,
-			outDir = folder.newFolder();
-
+				outDir = new File("./extractedData/WorldMap/");
+		if (!outDir.exists()) {
+			outDir.mkdirs();
+		}
 		int count = 0;
 
 		try (Store store = new Store(base))

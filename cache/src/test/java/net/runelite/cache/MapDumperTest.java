@@ -62,9 +62,11 @@ public class MapDumperTest
 	public void dumpRaw() throws IOException
 	{
 		File base = StoreLocation.LOCATION,
-			outDir = folder.newFolder();
+			outDir = new File("./extractedData/MapDump/");
 		XteaKeyManager keyManager = new XteaKeyManager();
-
+		if (!outDir.exists()) {
+			outDir.mkdirs();
+		}
 		try (Store store = new Store(base))
 		{
 			store.load();
@@ -105,7 +107,7 @@ public class MapDumperTest
 						continue;
 					}
 
-					logger.info("Decrypted region {} coords {},{}", i, x, y);
+					logger.error("Decrypted region {} coords {},{}", i, x, y);
 
 					Files.write(data, new File(outDir, "l" + x + "_" + y + ".dat"));
 				}
@@ -161,7 +163,6 @@ public class MapDumperTest
 	}
 
 	@Test
-	@Ignore
 	public void dumpJson() throws IOException
 	{
 		File base = StoreLocation.LOCATION,

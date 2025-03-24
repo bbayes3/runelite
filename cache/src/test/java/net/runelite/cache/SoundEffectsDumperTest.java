@@ -53,10 +53,12 @@ public class SoundEffectsDumperTest
 	public TemporaryFolder folder = StoreLocation.getTemporaryFolder();
 
 	@Test
-	@Ignore
 	public void test() throws IOException
 	{
-		File dumpDir = folder.newFolder();
+		File dumpDir = new File("./extractedData/SoundEffectDefinitions/");
+		if (!dumpDir.exists()) {
+			dumpDir.mkdirs();
+		}
 		int count = 0;
 
 		try (Store store = new Store(StoreLocation.LOCATION))
@@ -72,7 +74,7 @@ public class SoundEffectsDumperTest
 
 				SoundEffectLoader soundEffectLoader = new SoundEffectLoader();
 				SoundEffectDefinition soundEffect = soundEffectLoader.load(contents);
-				Files.asCharSink(new File(dumpDir, archive.getArchiveId() + ".wav"), Charset.defaultCharset()).write(gson.toJson(soundEffect));
+				Files.asCharSink(new File(dumpDir, archive.getArchiveId() + ".json"), Charset.defaultCharset()).write(gson.toJson(soundEffect));
 				++count;
 			}
 		}

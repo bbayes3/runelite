@@ -56,13 +56,17 @@ public class KitDumperTest
 	@Test
 	public void test() throws IOException
 	{
-		File dumpDir = folder.newFolder();
+		File dumpDir = new File("/extractedData/KitDump/");
 		int count = 0;
+		if (!dumpDir.exists()) {
+			dumpDir.mkdirs();
+		}
 
 		try (Store store = new Store(StoreLocation.LOCATION))
 		{
 			store.load();
-
+			StringBuilder str = new StringBuilder();
+			str.append("[");
 			Storage storage = store.getStorage();
 			Index index = store.getIndex(IndexType.CONFIGS);
 			Archive archive = index.getArchive(ConfigType.IDENTKIT.getId());
@@ -75,12 +79,16 @@ public class KitDumperTest
 			for (FSFile file : files.getFiles())
 			{
 				byte[] b = file.getContents();
-
 				KitDefinition def = loader.load(file.getFileId(), b);
+				str.append(gson.toJson(def) + ",");
 
 				Files.asCharSink(new File(dumpDir, file.getFileId() + ".json"), Charset.defaultCharset()).write(gson.toJson(def));
 				++count;
 			}
+			str.deleteCharAt(str.length() - 1);
+			str.append("]");
+			Files.asCharSink(new File(dumpDir, "KitDump" + ".json"), Charset.defaultCharset()).write(str);
+
 		}
 
 		logger.info("Dumped {} kits to {}", count, dumpDir);

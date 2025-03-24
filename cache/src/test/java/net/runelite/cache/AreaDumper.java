@@ -51,7 +51,7 @@ public class AreaDumper
 	public void extract() throws IOException
 	{
 		File base = StoreLocation.LOCATION,
-				dumpDir = new File(System.getProperty("user.home") + "\\IdeaProjects\\pkhonor-cache-updater\\new_cache\\osrs\\cache\\export\\area");
+				dumpDir = new File("./extractedData/AreaDefinition/");
 
 		if (!dumpDir.exists()) {
 			dumpDir.mkdirs();
@@ -69,14 +69,15 @@ public class AreaDumper
 			for (AreaDefinition area : areaManager.getAreas())
 			{
 				str.append(gson.toJson(area) + ",");
-				Files.asCharSink(new File(dumpDir, area.id + ".json"), Charset.defaultCharset()).write(gson.toJson(area));
+				//Files.asCharSink(new File(dumpDir, area.id + ".json"), Charset.defaultCharset()).write(gson.toJson(area));
 				++count;
-				}str.deleteCharAt(str.length() - 1);
+			}
+			str.deleteCharAt(str.length() - 1);
 			str.append("]");
 			Files.asCharSink(new File(dumpDir, "AreaDump" + ".json"), Charset.defaultCharset()).write(str);
 
 		}
 
-		logger.info("Dumped {} areas to {}", count, dumpDir);
+		logger.info("Dumped {} areas to {}", count, dumpDir.getAbsolutePath());
 	}
 }

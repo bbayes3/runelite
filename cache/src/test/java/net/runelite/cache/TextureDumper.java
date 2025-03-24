@@ -51,7 +51,7 @@ public class TextureDumper
 	public void extract() throws IOException
 	{
 		File base = StoreLocation.LOCATION,
-				outDir = new File(System.getProperty("user.home") + "\\IdeaProjects\\pkhonor-cache-updater\\new_cache\\osrs\\cache\\export\\texture");
+				outDir = new File("./extractedData/Textures/");
 		if (!outDir.exists()) {
 			outDir.mkdirs();
 		}
@@ -61,15 +61,21 @@ public class TextureDumper
 		try (Store store = new Store(base))
 		{
 			store.load();
-
+			StringBuilder str = new StringBuilder();
+			str.append("[");
 			TextureManager tm = new TextureManager(store);
 			tm.load();
 
 			for (TextureDefinition texture : tm.getTextures())
 			{
-				Files.asCharSink(new File(outDir, texture.getId() + ".json"), Charset.defaultCharset()).write(gson.toJson(texture));
+				str.append(gson.toJson(texture) + ",");
+				//Files.asCharSink(new File(outDir, texture.getId() + ".json"), Charset.defaultCharset()).write(gson.toJson(texture));
 				++count;
 			}
+			str.deleteCharAt(str.length() - 1);
+			str.append("]");
+			Files.asCharSink(new File(outDir, "Textures" + ".json"), Charset.defaultCharset()).write(str);
+
 		}
 
 		logger.info("Dumped {} textures to {}", count, outDir);

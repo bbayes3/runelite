@@ -152,9 +152,9 @@ public class MapImageDumper
 	public static void main(String[] args) throws IOException
 	{
 
-		final String cacheDirectory = "C:\\Users\\brant\\IdeaProjects\\pkhonor-cache-updater\\new_cache\\osrs\\cache";
-		final String xteaJSONPath = "C:\\Users\\brant\\IdeaProjects\\pkhonor-cache-updater\\new_cache\\osrs\\xteas.json";
-		final String outputDirectory = System.getProperty("user.home") + "\\IdeaProjects\\pkhonor-cache-updater\\new_cache\\osrs\\cache\\export\\maps";
+		final String cacheDirectory = "./localCache";
+		final String xteaJSONPath = "E:\\IdeaProjects\\LocalRunelite\\cache\\localCache\\xteas.json";
+		final String outputDirectory = "./extractedData/Maps/";
 
 		XteaKeyManager xteaKeyManager = new XteaKeyManager();
 		try (FileInputStream fin = new FileInputStream(xteaJSONPath))

@@ -57,7 +57,7 @@ public class OverlayDumperTest
 	public void extract() throws IOException
 	{
 		File base = StoreLocation.LOCATION,
-				outDir = new File(System.getProperty("user.home") + "\\IdeaProjects\\pkhonor-cache-updater\\new_cache\\osrs\\cache\\export\\Overlay");
+				outDir = new File("./extractedData/Overlays/");
 
 		if (!outDir.exists()) {
 			outDir.mkdirs();

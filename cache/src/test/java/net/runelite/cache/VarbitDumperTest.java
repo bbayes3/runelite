@@ -59,7 +59,7 @@ public class VarbitDumperTest
 	public void extract() throws IOException
 	{
 		File base = StoreLocation.LOCATION;
-		File dumpDir = new File(System.getProperty("user.home") + "\\IdeaProjects\\pkhonor-cache-updater\\new_cache\\osrs\\cache\\export\\varbits");
+		File dumpDir = new File("./extractedData/Varbits/");
 
 
 		if (!dumpDir.exists()) {

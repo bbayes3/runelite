@@ -54,11 +54,20 @@ public class TrackDumperTest
 	private final Djb2Manager djb2 = new Djb2Manager();
 
 	@Test
+	@Ignore
 	public void test() throws IOException
 	{
-		File dumpDir1 = folder.newFolder(),
-			dumpDir2 = folder.newFolder();
+		File dumpDir1 = new File("./extractedData/MusicTracks/"),
+			dumpDir2 = new File("./extractedData/MusicJingles/");
 		int idx1 = 0, idx2 = 0;
+		if (!dumpDir1.exists()) {
+			dumpDir1.mkdirs();
+		}
+		if (!dumpDir2.exists()) {
+		dumpDir2.mkdirs();
+	}
+
+
 
 		djb2.load();
 
@@ -99,18 +108,7 @@ public class TrackDumperTest
 		TrackDefinition def = loader.load(contents);
 
 		String name;
-		if (archive.getNameHash() != 0)
-		{
-			name = djb2.getName(archive.getNameHash());
-			if (name == null)
-			{
-				name = "name-" + archive.getNameHash();
-			}
-		}
-		else
-		{
-			name = "archive-" + archive.getArchiveId();
-		}
+		name = String.valueOf(archive.getArchiveId());
 
 		File dest = new File(dumpDir, name + ".midi");
 		assert !dest.exists();

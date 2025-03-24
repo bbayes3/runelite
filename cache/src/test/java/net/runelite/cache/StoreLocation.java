@@ -51,19 +51,12 @@ public class StoreLocation
 			TMP = new File(cacheTmpDir);
 		}
 
-		try
-		{
-			LOCATION = setupCacheDir();
-		}
-		catch (IOException ex)
-		{
-			throw new RuntimeException(ex);
-		}
-	}
+        LOCATION = new File("./localCache");
+    }
 
 	private static File setupCacheDir() throws IOException
 	{
-		File file = new File(System.getProperty("user.home") + "\\IdeaProjects\\pkhonor-cache-updater\\new_cache\\osrs\\cache");
+		File file = new File("./localCache");
 
 		if (file.exists())
 		{

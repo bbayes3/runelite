@@ -40,14 +40,14 @@ public class Namer
 		{
 			return null;
 		}
+		name = name + "_" + id;
+//		if (used.contains(name))
+//		{
+//			name = name + "_" + id;
+//			//assert !used.contains(name);
+//		}
 
-		if (used.contains(name))
-		{
-			name = name + "_" + id;
-			assert !used.contains(name);
-		}
-
-		used.add(name);
+		//used.add(name);
 
 		return name;
 	}

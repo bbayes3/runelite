@@ -44,8 +44,8 @@ public class NpcManagerTest
 	@Test
 	public void test() throws IOException
 	{
-		File dumpDir = new File(System.getProperty("user.home") + "\\IdeaProjects\\pkhonor-cache-updater\\new_cache\\osrs\\cache\\export\\npc"),
-			javaDir = new File(System.getProperty("user.home") + "\\IdeaProjects\\pkhonor-cache-updater\\new_cache\\osrs\\cache\\export\\npc");
+		File dumpDir = new File("./extractedData/NPCDefinitions/"),
+			javaDir = new File("./extractedData/NPCDefinitions/");
 		if (!dumpDir.exists()) {
 			dumpDir.mkdirs();
 		}

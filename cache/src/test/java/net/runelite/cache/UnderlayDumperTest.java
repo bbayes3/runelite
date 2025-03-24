@@ -59,7 +59,7 @@ public class UnderlayDumperTest
 	public void extract() throws IOException
 	{
 		File base = StoreLocation.LOCATION,
-				outDir = new File(System.getProperty("user.home") + "\\IdeaProjects\\pkhonor-cache-updater\\new_cache\\osrs\\cache\\export\\Underlay");
+				outDir = new File("./extractedData/Underlays/");
 
 		if (!outDir.exists()) {
 			outDir.mkdirs();
